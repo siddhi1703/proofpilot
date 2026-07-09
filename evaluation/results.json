@@ -1,0 +1,15 @@
+{
+  "run_date": "2026-06-29",
+  "benchmark_version": 1,
+  "verdict_model": "qwen3.6-flash",
+  "embedding_model": "text-embedding-v4",
+  "rerank_model": "qwen3-rerank",
+  "cases": 3,
+  "passages": 18,
+  "claims": 12,
+  "verdict_accuracy": 1.0,
+  "retrieval_recall_at_1": 0.5,
+  "retrieval_recall_at_4": 1.0,
+  "reference_demo_seconds": 41.1,
+  "notes": "Synthetic hand-authored hackathon benchmark. Demo timing was measured locally with a one-chunk source and varies with network and provider load. Not a production-scale validation."
+}

@@ -1,0 +1,209 @@
+[
+  {
+    "id": "newsroom",
+    "passages": [
+      {
+        "id": "S1",
+        "page": 1,
+        "text": "The newsroom workflow pilot enrolled 120 editors across four regional newsrooms. It ran from January through March 2026."
+      },
+      {
+        "id": "S2",
+        "page": 2,
+        "text": "Across the twelve-week pilot, average editing time decreased by 16 percent."
+      },
+      {
+        "id": "S3",
+        "page": 3,
+        "text": "Researchers found that staffing costs were unchanged; there was no 60 percent reduction. The study did not evaluate whether the tool increased advertising revenue."
+      },
+      {
+        "id": "S4",
+        "page": 4,
+        "text": "Editors retained final approval over every factual change before publication."
+      },
+      {
+        "id": "S5",
+        "page": 5,
+        "text": "The appendix describes interview recruitment and software training sessions."
+      },
+      {
+        "id": "S6",
+        "page": 6,
+        "text": "Future research may examine reader trust and newsroom adoption."
+      }
+    ],
+    "claims": [
+      {
+        "id": "C1",
+        "text": "The pilot enrolled 120 editors.",
+        "type": "statistic",
+        "importance": "high",
+        "expected_verdict": "supported",
+        "expected_source_id": "S1"
+      },
+      {
+        "id": "C2",
+        "text": "Average editing time decreased by 16 percent.",
+        "type": "statistic",
+        "importance": "high",
+        "expected_verdict": "supported",
+        "expected_source_id": "S2"
+      },
+      {
+        "id": "C3",
+        "text": "The pilot demonstrated a 60 percent reduction in staffing costs.",
+        "type": "statistic",
+        "importance": "high",
+        "expected_verdict": "contradicted",
+        "expected_source_id": "S3"
+      },
+      {
+        "id": "C4",
+        "text": "The tool increased advertising revenue.",
+        "type": "causal",
+        "importance": "high",
+        "expected_verdict": "unsupported",
+        "expected_source_id": "S3"
+      }
+    ]
+  },
+  {
+    "id": "clinical_trial",
+    "passages": [
+      {
+        "id": "S1",
+        "page": 1,
+        "text": "The randomized trial enrolled 80 adults: 40 received the study drug and 40 received a placebo."
+      },
+      {
+        "id": "S2",
+        "page": 2,
+        "text": "At eight weeks, symptom scores fell 12 percent in the drug group and 10 percent in the placebo group. The difference was not statistically significant."
+      },
+      {
+        "id": "S3",
+        "page": 3,
+        "text": "No serious adverse events were observed during the eight-week study. The trial did not assess long-term safety."
+      },
+      {
+        "id": "S4",
+        "page": 4,
+        "text": "Participants completed weekly electronic symptom questionnaires."
+      },
+      {
+        "id": "S5",
+        "page": 5,
+        "text": "The protocol was approved by the institutional review board."
+      },
+      {
+        "id": "S6",
+        "page": 6,
+        "text": "The investigators recommend a larger study with longer follow-up."
+      }
+    ],
+    "claims": [
+      {
+        "id": "C1",
+        "text": "The randomized trial enrolled 80 adults.",
+        "type": "statistic",
+        "importance": "high",
+        "expected_verdict": "supported",
+        "expected_source_id": "S1"
+      },
+      {
+        "id": "C2",
+        "text": "Symptoms improved by 50 percent in the drug group.",
+        "type": "statistic",
+        "importance": "high",
+        "expected_verdict": "contradicted",
+        "expected_source_id": "S2"
+      },
+      {
+        "id": "C3",
+        "text": "The study drug was proven superior to placebo.",
+        "type": "comparison",
+        "importance": "high",
+        "expected_verdict": "contradicted",
+        "expected_source_id": "S2"
+      },
+      {
+        "id": "C4",
+        "text": "The study established that the drug is safe for long-term use.",
+        "type": "general_fact",
+        "importance": "high",
+        "expected_verdict": "unsupported",
+        "expected_source_id": "S3"
+      }
+    ]
+  },
+  {
+    "id": "electric_buses",
+    "passages": [
+      {
+        "id": "S1",
+        "page": 1,
+        "text": "The city launched 12 electric buses in May 2025 on routes 4 and 7."
+      },
+      {
+        "id": "S2",
+        "page": 2,
+        "text": "Fuel expenses decreased by 18,000 dollars during the first six months of the electric bus pilot."
+      },
+      {
+        "id": "S3",
+        "page": 3,
+        "text": "The report excluded maintenance costs and did not measure changes in ridership or emissions."
+      },
+      {
+        "id": "S4",
+        "page": 4,
+        "text": "Drivers received two days of charging and emergency-response training."
+      },
+      {
+        "id": "S5",
+        "page": 5,
+        "text": "Charging took place overnight at the central transit depot."
+      },
+      {
+        "id": "S6",
+        "page": 6,
+        "text": "The next phase may add buses to two additional routes."
+      }
+    ],
+    "claims": [
+      {
+        "id": "C1",
+        "text": "The city launched 12 electric buses in May 2025.",
+        "type": "date",
+        "importance": "high",
+        "expected_verdict": "supported",
+        "expected_source_id": "S1"
+      },
+      {
+        "id": "C2",
+        "text": "Fuel expenses decreased by 18,000 dollars in six months.",
+        "type": "statistic",
+        "importance": "high",
+        "expected_verdict": "supported",
+        "expected_source_id": "S2"
+      },
+      {
+        "id": "C3",
+        "text": "Transit ridership increased by 25 percent during the pilot.",
+        "type": "statistic",
+        "importance": "high",
+        "expected_verdict": "unsupported",
+        "expected_source_id": "S3"
+      },
+      {
+        "id": "C4",
+        "text": "The report included maintenance costs in its analysis.",
+        "type": "general_fact",
+        "importance": "medium",
+        "expected_verdict": "contradicted",
+        "expected_source_id": "S3"
+      }
+    ]
+  }
+]

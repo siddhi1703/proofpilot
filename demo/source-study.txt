@@ -1,0 +1,16 @@
+Newsroom Workflow Pilot
+
+The newsroom workflow pilot enrolled 120 editors across four regional newsrooms.
+The pilot ran from January through March 2026. Participants used an AI-assisted
+editing tool for routine copy preparation while final publication decisions
+remained with human editors.
+
+Across the twelve-week pilot, average editing time decreased by 16 percent.
+Researchers found that staffing costs were unchanged; there was no 60 percent
+reduction. The study did not evaluate whether the tool increased advertising
+revenue.
+
+The research team reported that the strongest results occurred when editors
+reviewed every suggested factual change before publication. The report
+recommended keeping a human approval checkpoint for statistics, names, dates,
+and other high-impact claims.
