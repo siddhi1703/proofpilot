@@ -16,9 +16,7 @@ Built for the **Global AI Hackathon Series with Qwen Cloud**, Track 4:
   and human review required
 - Deterministic privacy scanning runs beside the AI pipeline
 - Invalid or invented evidence quotes automatically fail closed to human review
-- A high-overlap exact-sentence fallback repairs harmless model paraphrases
-  without inventing evidence
-- One-click JSON audit report for an inspectable decision trail
+- One-click pdf audit report for an inspectable decision trail
 
 ## Architecture
 
