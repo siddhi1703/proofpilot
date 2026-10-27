@@ -1,0 +1,2689 @@
+{
+  "schema_version": 1,
+  "profile": "free-colab-open-weights",
+  "updated_at": "2026-10-26T22:17:28.282997+00:00",
+  "configuration": {
+    "dataset_sha256": "4edf0bc1d2badb1629b9386ce9f79db4c50c1c3c268d286fa4a196a70476e585",
+    "code_sha256": "b03d98393f63fa83d651d48addfd2fc9ee7bd17534d3f15ca6a54c70736a64fe",
+    "models": {
+      "backend": "colab-open-weights",
+      "revisions": {
+        "sentence-transformers/all-MiniLM-L6-v2": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+        "cross-encoder/ms-marco-MiniLM-L6-v2": "233902d25c440f23af6f7d6e94d2946bac0bee0a",
+        "Qwen/Qwen3-4B-Instruct-2507": "cdbee75f17c01a7cc42f958dc650907174af0554"
+      },
+      "embedding": "sentence-transformers/all-MiniLM-L6-v2",
+      "rerank": "cross-encoder/ms-marco-MiniLM-L6-v2",
+      "verdict": "Qwen/Qwen3-4B-Instruct-2507",
+      "embedding_policy": "240-token windows, 32-token overlap, mean of normalized window vectors then L2 normalization",
+      "rerank_policy": "maximum cross-encoder logit over 320-token source windows with 64-token overlap; no lexical rescue",
+      "quantization": "verdict model NF4 4-bit, float16 compute, double quantization",
+      "generation": "greedy; one claim per verdict request; 2048 output-token cap; 12000 input-token cap; no silent truncation",
+      "gpu": "Tesla T4"
+    },
+    "mode": "rerank",
+    "verdicts": true,
+    "verdict_batch_size": 1,
+    "packages": {
+      "torch": "2.11.0+cu130",
+      "transformers": "4.57.1",
+      "sentence-transformers": "5.1.2",
+      "bitsandbytes": "0.48.1",
+      "accelerate": "1.11.0",
+      "numpy": "2.1.3"
+    }
+  },
+  "dataset_id": "scifact-proofpilot-v2",
+  "split": "development",
+  "dataset_total_cases": 100,
+  "requested_cases": 100,
+  "completed_cases": 100,
+  "partial_run": false,
+  "strategies": {
+    "rerank": {
+      "metrics": {
+        "claims": 100,
+        "retrieval_applicable_claims": 64,
+        "retrieval_not_applicable_claims": 36,
+        "retrieval_recall_at_1": 0.8724,
+        "retrieval_hit_rate_at_1": 0.8906,
+        "retrieval_recall_at_4": 0.9688,
+        "retrieval_hit_rate_at_4": 0.9688,
+        "retrieval_recall_at_8": 1.0,
+        "retrieval_hit_rate_at_8": 1.0,
+        "retrieval_mrr_at_8": 0.9294,
+        "verdict_accuracy": 0.5,
+        "accuracy_wilson_95": [
+          0.4038,
+          0.5962
+        ],
+        "verdict_coverage": 1.0,
+        "missing_verdicts": 0,
+        "macro_f1_observed_labels": 0.5842,
+        "per_verdict": {
+          "supported": {
+            "support": 47,
+            "predicted": 17,
+            "precision": 1.0,
+            "recall": 0.3617,
+            "f1": 0.5312
+          },
+          "weakly_supported": {
+            "support": 0,
+            "predicted": 21,
+            "precision": 0.0,
+            "recall": null,
+            "f1": null
+          },
+          "unsupported": {
+            "support": 36,
+            "predicted": 38,
+            "precision": 0.6842,
+            "recall": 0.7222,
+            "f1": 0.7027
+          },
+          "contradicted": {
+            "support": 17,
+            "predicted": 10,
+            "precision": 0.7,
+            "recall": 0.4118,
+            "f1": 0.5185
+          },
+          "human_review_required": {
+            "support": 0,
+            "predicted": 14,
+            "precision": 0.0,
+            "recall": null,
+            "f1": null
+          }
+        },
+        "confusion_matrix": {
+          "supported": {
+            "supported": 17,
+            "unsupported": 8,
+            "human_review_required": 6,
+            "weakly_supported": 14,
+            "contradicted": 2
+          },
+          "weakly_supported": {},
+          "unsupported": {
+            "unsupported": 26,
+            "human_review_required": 6,
+            "weakly_supported": 3,
+            "contradicted": 1
+          },
+          "contradicted": {
+            "human_review_required": 2,
+            "unsupported": 4,
+            "contradicted": 7,
+            "weakly_supported": 4
+          },
+          "human_review_required": {}
+        },
+        "false_supported": 0
+      },
+      "errors": [],
+      "reranker_fallback_claims": 0,
+      "claim_results": [
+        {
+          "case_id": "scifact-1255",
+          "claim_id": "C1255",
+          "claim": "The proliferative capacity of progenitors is regulated cell-autonomously.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D16939583"
+          ],
+          "ranked_source_ids": [
+            "D16939583",
+            "D11902109",
+            "D10015292",
+            "D4366738",
+            "D39465575",
+            "D19912367",
+            "D15816729",
+            "D8724666"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "supported",
+          "evidence_quote": "We found that this mechanism for controlling cortical size is regulated cell autonomously in culture, suggesting that primate cerebral cortex size is regulated at least in part at the level of individual cortical progenitor cell clonal output.",
+          "cited_source_ids": [
+            "D16939583"
+          ]
+        },
+        {
+          "case_id": "scifact-606",
+          "claim_id": "C606",
+          "claim": "Increased conversion of PGE 2 to PPARy ligand 15-ket-PGE 2 causes accumulation of PGE.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D6083952",
+            "D31564409",
+            "D712078",
+            "D38401028",
+            "D8133180",
+            "D13001323",
+            "D34101101",
+            "D5503194"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-746",
+          "claim_id": "C746",
+          "claim": "MafA phosphorylation enhances its ubiquitination.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D11291348"
+          ],
+          "ranked_source_ids": [
+            "D11291348",
+            "D21307488",
+            "D25817686",
+            "D23513818",
+            "D43880096",
+            "D8417211",
+            "D32408470",
+            "D1964163"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "supported",
+          "evidence_quote": "We also demonstrate that GSK-3 triggers MafA sequential phosphorylation on residues S61, T57, T53, and S49, inducing its ubiquitination and degradation.",
+          "cited_source_ids": [
+            "D11291348"
+          ]
+        },
+        {
+          "case_id": "scifact-1053",
+          "claim_id": "C1053",
+          "claim": "Rising temperatures caused by global warming lowers the risk of dengue fever transmission.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D18816720",
+            "D2097256",
+            "D17454301",
+            "D13882658",
+            "D24922825",
+            "D27527854",
+            "D129199129",
+            "D27866735"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "human_review_required",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-432",
+          "claim_id": "C432",
+          "claim": "Foxk2 regulates autophagy genes in muscle cells and fibroblast cells.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D8002887"
+          ],
+          "ranked_source_ids": [
+            "D8002887",
+            "D982650",
+            "D13651792",
+            "D6227220",
+            "D33569870",
+            "D23972114",
+            "D19912367",
+            "D11535539"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "supported",
+          "evidence_quote": "Here, we identify Foxk proteins (Foxk1 and Foxk2) as transcriptional repressors of autophagy in muscle cells and fibroblasts. Interestingly, Foxk1/2 serve to counter-balance another forkhead transcription factor, Foxo3, which induces an overlapping set of autophagic and atrophic targets in muscle. Foxk1/2 specifically recruits Sin3A-HDAC complexes to restrict acetylation of histone H4 and expression of critical autophagy genes.",
+          "cited_source_ids": [
+            "D8002887"
+          ]
+        },
+        {
+          "case_id": "scifact-247",
+          "claim_id": "C247",
+          "claim": "Chemical injury represses transglutaminase 2 activity.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D13578199",
+            "D2316374",
+            "D13613916",
+            "D3870062",
+            "D6182947",
+            "D2890952",
+            "D4362729",
+            "D25519138"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-1068",
+          "claim_id": "C1068",
+          "claim": "ScPif1p has reduced binding ability to G-rich ssDNA compared to non-G-rich ssDNA.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D23509593",
+            "D24645237",
+            "D22500262",
+            "D29098525",
+            "D11011905",
+            "D13921783",
+            "D26887439",
+            "D16853734"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-818",
+          "claim_id": "C818",
+          "claim": "Myelin sheaths play a role in action potential propagation.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D17814815"
+          ],
+          "ranked_source_ids": [
+            "D20743803",
+            "D45449835",
+            "D7840442",
+            "D35467590",
+            "D17814815",
+            "D14461101",
+            "D8267678",
+            "D9899292"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-1043",
+          "claim_id": "C1043",
+          "claim": "Retinoic acid receptor-related orphan receptor gamma (ROR\u03b3) is a therapeutic target for castration-resistant prostate cancer (CRPC)",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D17671145"
+          ],
+          "ranked_source_ids": [
+            "D17671145",
+            "D3590806",
+            "D8512633",
+            "D11774598",
+            "D25830701",
+            "D18546584",
+            "D6790197",
+            "D18473550"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "supported",
+          "evidence_quote": "ROR-\u03b3 drives androgen receptor expression and represents a therapeutic target in castration-resistant prostate cancer. The androgen receptor (AR) is overexpressed and hyperactivated in human castration-resistant prostate cancer (CRPC). However, the determinants of AR overexpression in CRPC are poorly defined. Here we show that retinoic acid receptor-related orphan receptor \u03b3 (ROR-\u03b3) is overexpressed and amplified in metastatic CRPC tumors, and that ROR-\u03b3 drives AR expression in the tumors. ROR-\u03b3 recruits nuclear receptor coactivator 1 and 3 (NCOA1 and NCOA3, also known as SRC-1 and SRC-3) to an AR-ROR response element (RORE) to stimulate AR gene transcription. ROR-\u03b3 antagonists suppress the expression of both AR and its variant AR-V7 in prostate cancer (PCa) cell lines and tumors. ROR-\u03b3 antagonists also markedly diminish genome-wide AR binding, H3K27ac abundance and expression of the AR target gene network. Finally, ROR-\u03b3 antagonists suppressed tumor growth in multiple AR-expressing, but not AR-negative, xenograft PCa models, and they effectively sensitized CRPC tumors to enzalutamide, without overt toxicity, in mice. Taken together, these results establish ROR-\u03b3 as a key player in CRPC by acting upstream of AR and as a potential therapeutic target for advanced PCa.",
+          "cited_source_ids": [
+            "D17671145"
+          ]
+        },
+        {
+          "case_id": "scifact-885",
+          "claim_id": "C885",
+          "claim": "One in five surgical randomized controlled trials are discontinued early.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D6477536"
+          ],
+          "ranked_source_ids": [
+            "D6477536",
+            "D9754833",
+            "D13027590",
+            "D46485368",
+            "D44048701",
+            "D7613033",
+            "D7552215",
+            "D20008796"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "supported",
+          "evidence_quote": "Of these, 21% (81/395) were discontinued early, most commonly owing to poor recruitment (44%, 36/81).",
+          "cited_source_ids": [
+            "D6477536"
+          ]
+        },
+        {
+          "case_id": "scifact-790",
+          "claim_id": "C790",
+          "claim": "Microglia are an innate immune cell type of the peripheral nervous system.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "contradicted",
+          "expected_source_ids": [
+            "D15493354"
+          ],
+          "ranked_source_ids": [
+            "D17991818",
+            "D15493354",
+            "D11581157",
+            "D21439293",
+            "D34854444",
+            "D8137081",
+            "D10627801",
+            "D24989194"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "human_review_required",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-18",
+          "claim_id": "C18",
+          "claim": "61% of colorectal cancer patients are diagnosed with regional or distant metastases.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D1387104",
+            "D39580129",
+            "D22942787",
+            "D25121903",
+            "D23830488",
+            "D7613033",
+            "D3590806",
+            "D756887"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-663",
+          "claim_id": "C663",
+          "claim": "KLF4 is necessary for VSMCs to gain genetic characteristics of other cell types within atherosclerotic lesions.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D22080671"
+          ],
+          "ranked_source_ids": [
+            "D22080671",
+            "D25148216",
+            "D8446259",
+            "D7373453",
+            "D8385277",
+            "D7711685",
+            "D1203035",
+            "D6054657"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "human_review_required",
+          "evidence_quote": "",
+          "cited_source_ids": [
+            "D22080671"
+          ]
+        },
+        {
+          "case_id": "scifact-466",
+          "claim_id": "C466",
+          "claim": "Genomic sequences involved in alternative splicing responsible for Hutchinson-Gilford progeria syndrome (HGPS) are abundant in the ''progerinonly'' allele of Lmna knock-in models.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "contradicted",
+          "expected_source_ids": [
+            "D22544171"
+          ],
+          "ranked_source_ids": [
+            "D22544171",
+            "D14178995",
+            "D15692098",
+            "D4162857",
+            "D4378885",
+            "D18670",
+            "D20374609",
+            "D17911973"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-657",
+          "claim_id": "C657",
+          "claim": "Intramembrane cleavage by signal peptide peptidase aids in the degradation of proteins with a complex membrane orientation.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D8533245"
+          ],
+          "ranked_source_ids": [
+            "D8533245",
+            "D4361990",
+            "D35612665",
+            "D7643848",
+            "D6836086",
+            "D8246090",
+            "D7481159",
+            "D35085326"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-647",
+          "claim_id": "C647",
+          "claim": "Integrated care is ineffective at tackling multiple comorbidities.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "contradicted",
+          "expected_source_ids": [
+            "D15041758"
+          ],
+          "ranked_source_ids": [
+            "D15041758",
+            "D12584053",
+            "D40817021",
+            "D51972698",
+            "D19464037",
+            "D32969964",
+            "D38799797",
+            "D2488880"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "contradicted",
+          "evidence_quote": "Integrated care that covers chronic physical disease and comorbid depression can reduce social role disability and enhance global quality of life.",
+          "cited_source_ids": [
+            "D15041758"
+          ]
+        },
+        {
+          "case_id": "scifact-1105",
+          "claim_id": "C1105",
+          "claim": "Students who perform poorly in the early years of medical school are at increased risk for professional misconduct later in their careers.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D6710713"
+          ],
+          "ranked_source_ids": [
+            "D6710713",
+            "D16855829",
+            "D13791044",
+            "D44660616",
+            "D24159217",
+            "D14500725",
+            "D22942787",
+            "D27711043"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "weakly_supported",
+          "evidence_quote": "failure of early or preclinical examinations (5.47, 2.17 to 13.79, P<0.001) were independently associated with being a case.",
+          "cited_source_ids": [
+            "D6710713"
+          ]
+        },
+        {
+          "case_id": "scifact-854",
+          "claim_id": "C854",
+          "claim": "Nonhypertensive people who are 55 years old have a 90% chance of developing hypertension during their lifetime.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D12206390"
+          ],
+          "ranked_source_ids": [
+            "D12206390",
+            "D4506414",
+            "D54490092",
+            "D21616324",
+            "D3801693",
+            "D5151024",
+            "D4550036",
+            "D51972698"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "weakly_supported",
+          "evidence_quote": "The residual lifetime risks for developing hypertension and stage 1 high blood pressure or higher (greater-than-or-equal to 140/90 mm Hg regardless of treatment) were 90% in both 55- and 65-year-old participants.",
+          "cited_source_ids": [
+            "D12206390"
+          ]
+        },
+        {
+          "case_id": "scifact-861",
+          "claim_id": "C861",
+          "claim": "Normal granulomas form in the presence of TNF in Zebrafish.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "contradicted",
+          "expected_source_ids": [
+            "D16066726"
+          ],
+          "ranked_source_ids": [
+            "D16066726",
+            "D4932668",
+            "D34615397",
+            "D17049436",
+            "D40963697",
+            "D37269418",
+            "D20388894",
+            "D11328820"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "weakly_supported",
+          "evidence_quote": "We found that loss of TNF signaling caused increased mortality even when only innate immunity was operant. In the absence of TNF, intracellular bacterial growth and granuloma formation were accelerated and was followed by necrotic death of overladen macrophages and granuloma breakdown. Thus, TNF is not required for tuberculous granuloma formation, but maintains granuloma integrity indirectly by restricting mycobacterial growth within macrophages and preventing their necrosis.",
+          "cited_source_ids": [
+            "D16066726"
+          ]
+        },
+        {
+          "case_id": "scifact-68",
+          "claim_id": "C68",
+          "claim": "Activated Cdk5 regulates DNA damage-induced neuronal death.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D21295300"
+          ],
+          "ranked_source_ids": [
+            "D21295300",
+            "D12909503",
+            "D40901687",
+            "D21521236",
+            "D10015292",
+            "D31293581",
+            "D1941721",
+            "D13907427"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "supported",
+          "evidence_quote": "Phosphorylation of ATM by Cdk5 mediates DNA damage signaling and regulates neuronal death. The phosphatidylinositol-3-kinase-like kinase ATM (ataxia-telangiectasia mutated) has a central role in coordinating DNA damage responses, including cell-cycle checkpoint control, DNA repair and apoptosis. Mutations of ATM cause a spectrum of defects ranging from neurodegeneration to cancer predisposition. However, the mechanism by which DNA damage activates ATM is poorly understood. Here we show that Cdk5 (cyclin-dependent kinase 5), activated by DNA damage, directly phosphorylates ATM at Ser 794 in post-mitotic neurons. Phosphorylation at Ser 794 precedes, and is required for, ATM autophosphorylation at Ser 1981, and activates ATM kinase activity. The Cdk5-ATM signal regulates phosphorylation and function of the ATM targets p53 and H2AX. Interruption of the Cdk5-ATM pathway attenuates DNA-damage-induced neuronal cell cycle re-entry and expression of the p53 targets PUMA and Bax, protecting neurons from death. Thus, activation of Cdk5 by DNA damage serves as a critical signal to initiate the ATM response and regulate ATM-dependent cellular processes.",
+          "cited_source_ids": [
+            "D21295300"
+          ]
+        },
+        {
+          "case_id": "scifact-346",
+          "claim_id": "C346",
+          "claim": "Differentiation of progenitor cells to myeloid cells is skewed upon activation of insulin signaling.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "contradicted",
+          "expected_source_ids": [
+            "D11902109"
+          ],
+          "ranked_source_ids": [
+            "D11902109",
+            "D25148216",
+            "D17933691",
+            "D17708753",
+            "D13048272",
+            "D11335860",
+            "D9122283",
+            "D11289247"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-1350",
+          "claim_id": "C1350",
+          "claim": "Upregulation of PD1 causes the upregulation of Satb1.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D5377642",
+            "D26688294",
+            "D32587939",
+            "D4423401",
+            "D1554348",
+            "D26008063",
+            "D2405259",
+            "D22703082"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "human_review_required",
+          "evidence_quote": "",
+          "cited_source_ids": [
+            "D5377642"
+          ]
+        },
+        {
+          "case_id": "scifact-765",
+          "claim_id": "C765",
+          "claim": "Medications to treat obesity do not have side effects.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "contradicted",
+          "expected_source_ids": [
+            "D7552215"
+          ],
+          "ranked_source_ids": [
+            "D7552215",
+            "D4345757",
+            "D1831916",
+            "D25973484",
+            "D6957332",
+            "D24346598",
+            "D6290112",
+            "D8520041"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "contradicted",
+          "evidence_quote": "Orlistat reduced the incidence of diabetes and improved concentrations of total cholesterol and low density lipoprotein cholesterol, blood pressure, and glycaemic control in patients with diabetes but increased rates of gastrointestinal side effects and slightly lowered concentrations of high density lipoprotein. Sibutramine improved [corrected] concentrations of high density lipoprotein cholesterol and triglycerides [corrected] Rimonabant improved concentrations of high density lipoprotein cholesterol and triglycerides, blood pressure, and glycaemic control in patients with diabetes but increased the risk of mood disorders. CONCLUSIONS Orlistat, sibutramine, and rimonabant modestly reduce weight, have differing effects on cardiovascular risk profiles, and have specific adverse effects.",
+          "cited_source_ids": [
+            "D7552215"
+          ]
+        },
+        {
+          "case_id": "scifact-326",
+          "claim_id": "C326",
+          "claim": "Deletion of ATM and Rad3 related protein leads to acute tissue loss.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D40349336",
+            "D14178995",
+            "D3113630",
+            "D12909503",
+            "D30353437",
+            "D21295300",
+            "D8083310",
+            "D30122260"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "human_review_required",
+          "evidence_quote": "",
+          "cited_source_ids": [
+            "D40349336"
+          ]
+        },
+        {
+          "case_id": "scifact-210",
+          "claim_id": "C210",
+          "claim": "COPI coatmer is involved in lipid homeostasis.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D13794374"
+          ],
+          "ranked_source_ids": [
+            "D13794374",
+            "D33569870",
+            "D11557602",
+            "D20288322",
+            "D5914739",
+            "D31564409",
+            "D6936141",
+            "D1933281"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "supported",
+          "evidence_quote": "We found that COPI components regulate the PAT protein composition at the lipid droplet surface, and promote the association of adipocyte triglyceride lipase (ATGL) with the lipid droplet surface to mediate lipolysis. Two compounds known to inhibit COPI function, Exo1 and Brefeldin A, phenocopy COPI knockdowns. Furthermore, RNAi inhibition of ATGL and simultaneous drug treatment indicate that COPI and ATGL function in the same pathway. These data indicate that the COPI complex is an evolutionarily conserved regulator of lipid homeostasis, and highlight an interaction between vesicle transport systems and lipid droplets.",
+          "cited_source_ids": [
+            "D13794374"
+          ]
+        },
+        {
+          "case_id": "scifact-611",
+          "claim_id": "C611",
+          "claim": "Increased lipolysis leads to higher P38 phosphorylation in adipose tissue.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D32408470",
+            "D31564409",
+            "D4319174",
+            "D5268462",
+            "D17933691",
+            "D27686445",
+            "D4854076",
+            "D6227220"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-1406",
+          "claim_id": "C1406",
+          "claim": "\u03b2-sheet opening occurs during pleurotolysin pore formation.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D2617858"
+          ],
+          "ranked_source_ids": [
+            "D2617858",
+            "D1744752",
+            "D4465762",
+            "D17685207",
+            "D32250572",
+            "D28724565",
+            "D26990001",
+            "D6796297"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "supported",
+          "evidence_quote": "The major conformational changes in PlyB are a \u223c70\u00b0 opening of the bent and distorted central \u03b2-sheet of the MACPF domain, accompanied by extrusion and refolding of two \u03b1-helical regions into transmembrane \u03b2-hairpins (TMH1 and TMH2).",
+          "cited_source_ids": [
+            "D2617858"
+          ]
+        },
+        {
+          "case_id": "scifact-109",
+          "claim_id": "C109",
+          "claim": "An M2-like phenotype in brown adipose tissue macrophages is quickly induced by cold exposure.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D4319174"
+          ],
+          "ranked_source_ids": [
+            "D4319174",
+            "D36838958",
+            "D25687558",
+            "D4854076",
+            "D5268462",
+            "D17933691",
+            "D6227220",
+            "D1907601"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "weakly_supported",
+          "evidence_quote": "Exposure to cold temperature rapidly promoted alternative activation of adipose tissue macrophages, which secrete catecholamines to induce thermogenic gene expression in brown adipose tissue and lipolysis in white adipose tissue.",
+          "cited_source_ids": [
+            "D4319174"
+          ]
+        },
+        {
+          "case_id": "scifact-46",
+          "claim_id": "C46",
+          "claim": "A single nucleotide variant the gene DGKK is strongly associated with increased risk of hypospadias.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D380526"
+          ],
+          "ranked_source_ids": [
+            "D380526",
+            "D15570962",
+            "D2647374",
+            "D19497526",
+            "D6290112",
+            "D24237492",
+            "D22703082",
+            "D4587978"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "weakly_supported",
+          "evidence_quote": "Individual genotyping of two SNPs (rs1934179 and rs7063116) in DGKK, encoding diacylglycerol kinase \u03ba, produced compelling evidence for association with hypospadias in the discovery sample (allele-specific odds ratio (OR) = 2.5, P = 2.5 \u00d7 10\u221211 and OR = 2.3, P = 2.9 \u00d7 10\u22129, respectively) and in the Dutch (OR = 3.9, P = 2.4 \u00d7 10\u22125 and OR = 3.8, P = 3.4 \u00d7 10\u22125) and Swedish (OR = 2.5, P = 2.6 \u00d7 10\u22128 and OR = 2.2, P = 2.7 \u00d7 10\u22126) replication samples.",
+          "cited_source_ids": [
+            "D380526"
+          ]
+        },
+        {
+          "case_id": "scifact-668",
+          "claim_id": "C668",
+          "claim": "Klf4 is important for proper myeloid cell differentiation.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D25148216"
+          ],
+          "ranked_source_ids": [
+            "D25148216",
+            "D6493422",
+            "D22150633",
+            "D44724517",
+            "D22080671",
+            "D9460704",
+            "D39465575",
+            "D22428640"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "supported",
+          "evidence_quote": "Our in vivo loss-of-function studies demonstrate that KLF4, previously shown to mediate proinflammatory signaling in human macrophages in vitro, is essential for differentiation of mouse inflammatory monocytes, and is involved in the differentiation of resident monocytes. In addition, inducible expression of KLF4 in the HL60 human acute myeloid leukemia cell line stimulated monocytic differentiation and enhanced 12-O-tetradecanoylphorbol 13-acetate induced macrophage differentiation, but blocked all-trans-retinoic acid induced granulocytic differentiation of HL60 cells. The inflammation-selective effects of loss-of-KLF4 and the gain-of-KLF4-induced monocytic differentiation in HL60 cells identify KLF4 as a key regulator of monocytic differentiation and a potential target for translational immune modulation.",
+          "cited_source_ids": [
+            "D25148216"
+          ]
+        },
+        {
+          "case_id": "scifact-1118",
+          "claim_id": "C1118",
+          "claim": "Sweet taste receptors on the tongue are deactivated by between 1 and 10 mM glucose.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D23351136",
+            "D12943966",
+            "D11201004",
+            "D17656445",
+            "D5293024",
+            "D13613916",
+            "D9899292",
+            "D6540064"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-751",
+          "claim_id": "C751",
+          "claim": "Major vault protein (MVP) leads to more aggressive tumors by regulating the sorting of tumor suppressive miR-193a into extracellular vesicles (EVs).",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D19800147"
+          ],
+          "ranked_source_ids": [
+            "D19800147",
+            "D8702697",
+            "D16346504",
+            "D3730196",
+            "D14692646",
+            "D7764903",
+            "D13290521",
+            "D4020950"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "human_review_required",
+          "evidence_quote": "",
+          "cited_source_ids": [
+            "D19800147"
+          ]
+        },
+        {
+          "case_id": "scifact-739",
+          "claim_id": "C739",
+          "claim": "MT binding domain drives amyloid structure formation.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D1684489",
+            "D7729656",
+            "D2194320",
+            "D4361990",
+            "D4425507",
+            "D32671519",
+            "D2617858",
+            "D9889151"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-1138",
+          "claim_id": "C1138",
+          "claim": "TRAP+ osteoclasts regulate mature osteoblast maintenance.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D6796297"
+          ],
+          "ranked_source_ids": [
+            "D13509809",
+            "D12130067",
+            "D10795340",
+            "D8446259",
+            "D6796297",
+            "D18064113",
+            "D36089763",
+            "D35660758"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-1376",
+          "claim_id": "C1376",
+          "claim": "Whole brain radiotherapy increases the occurrence of new brain metastases.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "contradicted",
+          "expected_source_ids": [
+            "D3944632"
+          ],
+          "ranked_source_ids": [
+            "D19408393",
+            "D3944632",
+            "D7157436",
+            "D23599024",
+            "D308862",
+            "D24916604",
+            "D1387104",
+            "D8659426"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-428",
+          "claim_id": "C428",
+          "claim": "Forkhead 0 (fox0) transcription factors are involved in cellular differentiation.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D16728949"
+          ],
+          "ranked_source_ids": [
+            "D16728949",
+            "D4418070",
+            "D3748310",
+            "D8002887",
+            "D14225271",
+            "D17055665",
+            "D39465575",
+            "D42106119"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "weakly_supported",
+          "evidence_quote": "The forkhead O (FoxO) family of transcription factors participates in diverse physiologic processes, including induction of cell-cycle arrest, stress resistance, differentiation, apoptosis, and metabolism.",
+          "cited_source_ids": [
+            "D16728949"
+          ]
+        },
+        {
+          "case_id": "scifact-1157",
+          "claim_id": "C1157",
+          "claim": "The DESMOND program demonstrates no significant impact on biochemical outcomes.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D12584053"
+          ],
+          "ranked_source_ids": [
+            "D12584053",
+            "D2028532",
+            "D34603465",
+            "D8417211",
+            "D23013317",
+            "D20645538",
+            "D22937815",
+            "D15113221"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "contradicted",
+          "evidence_quote": "The groups did not differ for the other biomedical and lifestyle outcomes and drug use.",
+          "cited_source_ids": [
+            "D12584053"
+          ]
+        },
+        {
+          "case_id": "scifact-1127",
+          "claim_id": "C1127",
+          "claim": "Systemic lupus erythematosus is a risk factor for cardiovascular disease.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D27466734"
+          ],
+          "ranked_source_ids": [
+            "D27466734",
+            "D4506414",
+            "D2138767",
+            "D471921",
+            "D7757997",
+            "D14853989",
+            "D6070278",
+            "D4647303"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "weakly_supported",
+          "evidence_quote": "The inclusion of additional clinical variables in QRISK3 (chronic kidney disease, a measure of systolic blood pressure variability (standard deviation of repeated measures), migraine, corticosteroids, SLE, atypical antipsychotics, severe mental illness, and erectile dysfunction) can help enable doctors to identify those at most risk of heart disease and stroke.",
+          "cited_source_ids": [
+            "D27466734"
+          ]
+        },
+        {
+          "case_id": "scifact-1067",
+          "claim_id": "C1067",
+          "claim": "ScPif1p has higher binding ability to G-rich ssDNA than to non-G-rich ssDNA.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D4425507",
+            "D4469125",
+            "D29098525",
+            "D14328288",
+            "D13921783",
+            "D5377642",
+            "D14185503",
+            "D20649327"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-1045",
+          "claim_id": "C1045",
+          "claim": "Rhythmic expression of Cry1 translates directly into a circadian regulation of cAMP signaling in hepatic glucose metabolism.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D22500262"
+          ],
+          "ranked_source_ids": [
+            "D22500262",
+            "D23830488",
+            "D4587978",
+            "D36838958",
+            "D32587939",
+            "D26099680",
+            "D21645205",
+            "D13613916"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "weakly_supported",
+          "evidence_quote": "Cry1 expression was elevated during the night-day transition, when it reduced fasting gluconeogenic gene expression by blocking glucagon-mediated increases in intracellular cAMP concentrations and in the protein kinase A-mediated phosphorylation of Creb. In biochemical reconstitution studies, we found that Cry1 inhibited accumulation of cAMP in response to G protein-coupled receptor (GPCR) activation but not to forskolin, a direct activator of adenyl cyclase. Cry proteins seemed to modulate GPCR activity directly through interaction with G(s)\u03b1.",
+          "cited_source_ids": [
+            "D22500262"
+          ]
+        },
+        {
+          "case_id": "scifact-1257",
+          "claim_id": "C1257",
+          "claim": "The proportion of people with visual difficulty is two times higher in low-income countries than in high-income countries.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D457630",
+            "D27866735",
+            "D581832",
+            "D36558211",
+            "D849771",
+            "D10365749",
+            "D51972698",
+            "D15670968"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-592",
+          "claim_id": "C592",
+          "claim": "Incidence of 10/66 dementia is lower than the incidence of DSM-IV dementia.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "contradicted",
+          "expected_source_ids": [
+            "D14682243"
+          ],
+          "ranked_source_ids": [
+            "D14682243",
+            "D4824840",
+            "D6490571",
+            "D17691617",
+            "D6945285",
+            "D24735908",
+            "D76415938",
+            "D4449524"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "weakly_supported",
+          "evidence_quote": "Incidence for 10/66 dementia varied between 18\u00b72 and 30\u00b74 per 1000 person-years, and were 1\u00b74-2\u00b77 times higher than were those for DSM-IV dementia (9\u00b79-15\u00b77 per 1000 person-years).",
+          "cited_source_ids": [
+            "D14682243"
+          ]
+        },
+        {
+          "case_id": "scifact-1219",
+          "claim_id": "C1219",
+          "claim": "The gene daf-16, which encodes forkhead Box O (FOXO), is required for all phenotypes associated with reduced insulin/insulin-like growth factor (Igf) signaling.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D9393969",
+            "D14864285",
+            "D16728949",
+            "D4418070",
+            "D1576955",
+            "D17055665",
+            "D3748310",
+            "D4662264"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-682",
+          "claim_id": "C682",
+          "claim": "Lack of FGF21 in mice leads to reduced lifespan.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D9315213"
+          ],
+          "ranked_source_ids": [
+            "D9315213",
+            "D6227220",
+            "D19912367",
+            "D2832403",
+            "D40349336",
+            "D4407385",
+            "D17055665",
+            "D18348376"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-264",
+          "claim_id": "C264",
+          "claim": "Citrullinated proteins externalized in neutrophil extracellular traps act indirectly to perpetuate the inflammatory cycle via induction of autoantibodies.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D11328820"
+          ],
+          "ranked_source_ids": [
+            "D11328820",
+            "D30041340",
+            "D14853989",
+            "D17967608",
+            "D20608982",
+            "D27789588",
+            "D36089763",
+            "D43054703"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "weakly_supported",
+          "evidence_quote": "Anti-citrullinated vimentin antibodies potently induced NET formation. Moreover, the inflammatory cytokines interleukin-17A (IL-17A) and tumor necrosis factor-\u03b1 (TNF-\u03b1) induced NETosis in RA neutrophils. In turn, NETs significantly augmented inflammatory responses in RA and OA synovial fibroblasts, including induction of IL-6, IL-8, chemokines, and adhesion molecules.",
+          "cited_source_ids": [
+            "D11328820"
+          ]
+        },
+        {
+          "case_id": "scifact-934",
+          "claim_id": "C934",
+          "claim": "Perigenital skin is not the primary site of HIV acquisition.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D8563659",
+            "D24082820",
+            "D43378932",
+            "D20471181",
+            "D5735492",
+            "D11784947",
+            "D5548081",
+            "D8883846"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "human_review_required",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-200",
+          "claim_id": "C200",
+          "claim": "CD28 initiates tonic signaling in conventional T cells, which causes an exhaustion phenotype and limited efficiency.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D18231807"
+          ],
+          "ranked_source_ids": [
+            "D18231807",
+            "D35651106",
+            "D28006126",
+            "D2462673",
+            "D13868795",
+            "D39539647",
+            "D18758057",
+            "D2388819"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "contradicted",
+          "evidence_quote": "We further determine that CD28 costimulation augments, whereas 4-1BB costimulation reduces, exhaustion induced by persistent CAR signaling.",
+          "cited_source_ids": [
+            "D18231807"
+          ]
+        },
+        {
+          "case_id": "scifact-304",
+          "claim_id": "C304",
+          "claim": "DMS3 protein enables Pol V transcription in vivo.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D14797520",
+            "D7416873",
+            "D4162857",
+            "D23698769",
+            "D40234452",
+            "D12871281",
+            "D19356271",
+            "D16355392"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-1084",
+          "claim_id": "C1084",
+          "claim": "Side effects associated with antidepressants increases risk of stroke.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D5691302"
+          ],
+          "ranked_source_ids": [
+            "D5691302",
+            "D14566771",
+            "D18256197",
+            "D6945285",
+            "D32328114",
+            "D7552215",
+            "D9813098",
+            "D2825340"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "human_review_required",
+          "evidence_quote": "",
+          "cited_source_ids": [
+            "D5691302"
+          ]
+        },
+        {
+          "case_id": "scifact-1111",
+          "claim_id": "C1111",
+          "claim": "Sudden death can occur in patients with complex ventricular arrhythmias.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D1686881",
+            "D7711685",
+            "D43483151",
+            "D21789744",
+            "D35724562",
+            "D24097933",
+            "D29526125",
+            "D24660385"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "weakly_supported",
+          "evidence_quote": "An increased spatial dispersion of ventricular repolarization duration (QT dispersion) is associated with an increased vulnerability to arrhythmias.",
+          "cited_source_ids": [
+            "D21789744"
+          ]
+        },
+        {
+          "case_id": "scifact-939",
+          "claim_id": "C939",
+          "claim": "Persistor cells are one reason for incomplete responses to Tyrosine kinase inhibitor (TKI) therapy in cancer patients.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D34016944",
+            "D5270265",
+            "D4468861",
+            "D22317868",
+            "D28651643",
+            "D26231129",
+            "D15322518",
+            "D26561572"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-458",
+          "claim_id": "C458",
+          "claim": "Genetic deficiency of mast cells leads to decreased weight gain in a mouse model of diet-induced obesity.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D597790"
+          ],
+          "ranked_source_ids": [
+            "D597790",
+            "D6227220",
+            "D1365188",
+            "D13001323",
+            "D2605032",
+            "D4345757",
+            "D13283919",
+            "D1907601"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "weakly_supported",
+          "evidence_quote": "genetically induced deficiency of mast cells, or their pharmacological stabilization, reduces body weight gain and levels of inflammatory cytokines, chemokines and proteases in serum and WAT, in concert with improved glucose homeostasis and energy expenditure.",
+          "cited_source_ids": [
+            "D597790"
+          ]
+        },
+        {
+          "case_id": "scifact-1026",
+          "claim_id": "C1026",
+          "claim": "Reduced phosphorylation of PP2A increases HDAC4 dephosphorylation by enhancing PP2A-HDAC4 interaction.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D3113630",
+            "D11291348",
+            "D35884026",
+            "D8417211",
+            "D38751591",
+            "D17768946",
+            "D4423401",
+            "D7736860"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-618",
+          "claim_id": "C618",
+          "claim": "Increased purity of cytoplasmic membranes isolated from overexpressors is indicated by stronger spots for OmpF in 2D BN-PAGE gels.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D25628793",
+            "D5914739",
+            "D11721676",
+            "D38805486",
+            "D32827351",
+            "D15426878",
+            "D27022864",
+            "D6636088"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-1324",
+          "claim_id": "C1324",
+          "claim": "Treatment with a protein named FN restores regenerative abilities of aged muscles.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D19912367"
+          ],
+          "ranked_source_ids": [
+            "D19912367",
+            "D4407385",
+            "D39637840",
+            "D34016944",
+            "D25597580",
+            "D17097974",
+            "D1889358",
+            "D11721676"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "supported",
+          "evidence_quote": "Reconstitution of FN levels in the aged niche remobilizes stem cells and restores youth-like muscle regeneration.",
+          "cited_source_ids": [
+            "D19912367"
+          ]
+        },
+        {
+          "case_id": "scifact-1050",
+          "claim_id": "C1050",
+          "claim": "Risedronate increases risk of vertebral and non-vertebral fractures.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "contradicted",
+          "expected_source_ids": [
+            "D19878070"
+          ],
+          "ranked_source_ids": [
+            "D19878070",
+            "D16812091",
+            "D18691097",
+            "D44048701",
+            "D11716783",
+            "D9555784",
+            "D6945285",
+            "D5824985"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "contradicted",
+          "evidence_quote": "Treatment with 5 mg/d of risedronate, compared with placebo, decreased the cumulative incidence of new vertebral fractures by 41 % (95% confidence interval [CI], 18%-58%) over 3 years (11.3 % vs 16.3%; P= .003). A fracture reduction of 65% (95% CI, 38%-81 %) was observed after the first year (2.4% vs 6.4%; P<.001). The cumulative incidence of nonvertebral fractures over 3 years was reduced by 39% (95% CI, 6%-61 %) (5.2 % vs 8.4%; P = .02).",
+          "cited_source_ids": [
+            "D19878070"
+          ]
+        },
+        {
+          "case_id": "scifact-204",
+          "claim_id": "C204",
+          "claim": "CDK6 shows impaired binding to loss-of-function variants of p18 INK4C.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D7898952",
+            "D45875990",
+            "D8083310",
+            "D24335068",
+            "D24995939",
+            "D23698769",
+            "D12130067",
+            "D23972114"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-603",
+          "claim_id": "C603",
+          "claim": "Increased LDL receptors plays a role in the reduction of plasma Lp(a).",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D6540064"
+          ],
+          "ranked_source_ids": [
+            "D6540064",
+            "D7757997",
+            "D33569870",
+            "D1360607",
+            "D30908508",
+            "D15360986",
+            "D32587939",
+            "D13801259"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "weakly_supported",
+          "evidence_quote": "The increase in apo(a) FCR during alirocumab treatment suggests that increased LDL receptors may also play a role in the reduction of plasma Lp(a).",
+          "cited_source_ids": [
+            "D6540064"
+          ]
+        },
+        {
+          "case_id": "scifact-63",
+          "claim_id": "C63",
+          "claim": "ATM and Rad3 related protein are critical for sensing DNA damage.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D12909503",
+            "D30122260",
+            "D21295300",
+            "D14178995",
+            "D30353437",
+            "D19356271",
+            "D3113630",
+            "D40901687"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "weakly_supported",
+          "evidence_quote": "The mammalian protein kinases ATM and ATR, as well as their budding yeast corresponding orthologs Tel1 and Mec1, act as master regulators of the checkpoint response to DSBs.",
+          "cited_source_ids": [
+            "D30122260"
+          ]
+        },
+        {
+          "case_id": "scifact-505",
+          "claim_id": "C505",
+          "claim": "Helicobacter pylori-induced aberrant NF-kB-dependent expression of activation-induced cytidine deaminase contributes to the mutagenesis of host DNA.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D22703082"
+          ],
+          "ranked_source_ids": [
+            "D22703082",
+            "D24705390",
+            "D20330519",
+            "D28006126",
+            "D544971",
+            "D34258065",
+            "D6493422",
+            "D21295300"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "weakly_supported",
+          "evidence_quote": "H. pylori\u2013mediated upregulation of AID resulted in the accumulation of nucleotide alterations in the TP53 tumor suppressor gene in gastric cells in vitro. Our findings provide evidence that aberrant AID expression caused by H. pylori infection might be a mechanism of mutation accumulation in the gastric mucosa during H. pylori\u2013associated gastric carcinogenesis.",
+          "cited_source_ids": [
+            "D22703082"
+          ]
+        },
+        {
+          "case_id": "scifact-1001",
+          "claim_id": "C1001",
+          "claim": "R2D2 stops miRNA production by increasing the selectivity of Dcr2 for long dsRNA.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D5702790",
+            "D21601459",
+            "D116075383",
+            "D17544977",
+            "D2619579",
+            "D13290521",
+            "D6054657",
+            "D37438296"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-782",
+          "claim_id": "C782",
+          "claim": "Mice without IFN-\u03b3 or its receptor are highly susceptible to EAM induced with \u03b1-MyHC/CFA.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D8246922"
+          ],
+          "ranked_source_ids": [
+            "D39084565",
+            "D8246922",
+            "D35651106",
+            "D14934137",
+            "D39539647",
+            "D19130782",
+            "D10627801",
+            "D17671145"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-169",
+          "claim_id": "C169",
+          "claim": "Bariatric surgery reduces postmenopausal breast cancer.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "contradicted",
+          "expected_source_ids": [
+            "D5824985"
+          ],
+          "ranked_source_ids": [
+            "D5824985",
+            "D29022271",
+            "D7627167",
+            "D16701509",
+            "D32534305",
+            "D16098747",
+            "D25973484",
+            "D756887"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-285",
+          "claim_id": "C285",
+          "claim": "Continued HHV-8 transmission among MSM in San Francisco may be explained by urogenital contact.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D5548081",
+            "D708425",
+            "D14260013",
+            "D18816720",
+            "D21274496",
+            "D43378932",
+            "D2097256",
+            "D22194407"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "human_review_required",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-860",
+          "claim_id": "C860",
+          "claim": "Normal granulomas form in the absence of TNF in Zebrafish.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D16066726"
+          ],
+          "ranked_source_ids": [
+            "D16066726",
+            "D4932668",
+            "D34615397",
+            "D17049436",
+            "D40963697",
+            "D37269418",
+            "D12130067",
+            "D24760136"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": [
+            "D16066726"
+          ]
+        },
+        {
+          "case_id": "scifact-1036",
+          "claim_id": "C1036",
+          "claim": "Removal of H3K9me3 improves reprogramming efficiency in human somatic cell nuclear transfer experiments.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D4547102"
+          ],
+          "ranked_source_ids": [
+            "D4547102",
+            "D6477740",
+            "D6054657",
+            "D14225271",
+            "D37822406",
+            "D29641682",
+            "D16541762",
+            "D24713020"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-108",
+          "claim_id": "C108",
+          "claim": "Amitriptyline is an effective treatment for chronic tension-type headaches.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D6191684",
+            "D22995579",
+            "D23865182"
+          ],
+          "ranked_source_ids": [
+            "D22995579",
+            "D23865182",
+            "D6191684",
+            "D30813140",
+            "D24346598",
+            "D5151024",
+            "D3308636",
+            "D23195674"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "supported",
+          "evidence_quote": "Amitriptyline is the medication of first choice in the treatment of chronic tension-type headache.",
+          "cited_source_ids": [
+            "D23865182"
+          ]
+        },
+        {
+          "case_id": "scifact-263",
+          "claim_id": "C263",
+          "claim": "Citrullinated proteins externalized in neutrophil extracellular traps act indirectly to disrupt the inflammatory cycle.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "contradicted",
+          "expected_source_ids": [
+            "D11328820",
+            "D30041340"
+          ],
+          "ranked_source_ids": [
+            "D11328820",
+            "D30041340",
+            "D14853989",
+            "D36089763",
+            "D20608982",
+            "D17967608",
+            "D43054703",
+            "D7869794"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "weakly_supported",
+          "evidence_quote": "NETs significantly augmented inflammatory responses in RA and OA synovial fibroblasts, including induction of IL-6, IL-8, chemokines, and adhesion molecules.",
+          "cited_source_ids": [
+            "D11328820"
+          ]
+        },
+        {
+          "case_id": "scifact-173",
+          "claim_id": "C173",
+          "claim": "Bcp1 is a chaperone for Rpl23.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D13907427",
+            "D9889151",
+            "D25832301",
+            "D38805486",
+            "D38751591",
+            "D7225911",
+            "D10660080",
+            "D13123189"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-595",
+          "claim_id": "C595",
+          "claim": "Incidence of sepsis has fallen substantially from 2009 to 2014.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "contradicted",
+          "expected_source_ids": [
+            "D4824840"
+          ],
+          "ranked_source_ids": [
+            "D4824840",
+            "D32012666",
+            "D2647374",
+            "D40754510",
+            "D28647122",
+            "D44724517",
+            "D8137081",
+            "D20610390"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "contradicted",
+          "evidence_quote": "From 2009-2014, sepsis incidence using clinical criteria was stable (+0.6% relative change/y [95% CI, \u22122.3% to 3.5%], P = .67) whereas incidence per claims increased (+10.3%/y [95% CI, 7.2% to 13.3%], P < .001).",
+          "cited_source_ids": [
+            "D4824840"
+          ]
+        },
+        {
+          "case_id": "scifact-62",
+          "claim_id": "C62",
+          "claim": "ATF4 is a general endoplasmic reticulum stress marker.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D9752604",
+            "D32587939",
+            "D42873134",
+            "D7482674",
+            "D600437",
+            "D19708993",
+            "D24742375",
+            "D13780287"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-372",
+          "claim_id": "C372",
+          "claim": "Eilat virus (EILV) produced in mosquitos elicits rapid and long-lasting neutralizing antibodies in nonhuman primates.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D24922825"
+          ],
+          "ranked_source_ids": [
+            "D24922825",
+            "D15488881",
+            "D8883846",
+            "D21274496",
+            "D15237660",
+            "D22937651",
+            "D17682477",
+            "D17454301"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "supported",
+          "evidence_quote": "In nonhuman primates, EILV/CHIKV elicited rapid and robust immunity that protected against viremia and telemetrically monitored fever.",
+          "cited_source_ids": [
+            "D24922825"
+          ]
+        },
+        {
+          "case_id": "scifact-1166",
+          "claim_id": "C1166",
+          "claim": "The H2A-H2B eviction defect is compensated for by other histone chaperone(s).",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D9889151",
+            "D13907427",
+            "D502591",
+            "D46248894",
+            "D116075383",
+            "D27134931",
+            "D14155726",
+            "D17967608"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-766",
+          "claim_id": "C766",
+          "claim": "Medications to treat obesity have unwanted side effects.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D7552215"
+          ],
+          "ranked_source_ids": [
+            "D7552215",
+            "D1831916",
+            "D1907601",
+            "D25973484",
+            "D6957332",
+            "D1365188",
+            "D8520041",
+            "D6290112"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "supported",
+          "evidence_quote": "Orlistat reduced the incidence of diabetes and improved concentrations of total cholesterol and low density lipoprotein cholesterol, blood pressure, and glycaemic control in patients with diabetes but increased rates of gastrointestinal side effects and slightly lowered concentrations of high density lipoprotein. Sibutramine improved [corrected] concentrations of high density lipoprotein cholesterol and triglycerides [corrected] Rimonabant improved concentrations of high density lipoprotein cholesterol and triglycerides, blood pressure, and glycaemic control in patients with diabetes but increased the risk of mood disorders.",
+          "cited_source_ids": [
+            "D7552215"
+          ]
+        },
+        {
+          "case_id": "scifact-635",
+          "claim_id": "C635",
+          "claim": "Inhibiting glucose-6-phospate dehydrogenase improves lipogenesis by deactivating LKB1-AMPK signaling.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "contradicted",
+          "expected_source_ids": [
+            "D1686997"
+          ],
+          "ranked_source_ids": [
+            "D1686997",
+            "D9899292",
+            "D9752604",
+            "D8724666",
+            "D32408470",
+            "D1590744",
+            "D3153673",
+            "D22036571"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "weakly_supported",
+          "evidence_quote": "6PGD-mediated production of ribulose-5-phosphate (Ru-5-P) inhibits AMPK activation by disrupting the active LKB1 complex, thereby activating acetyl-CoA carboxylase 1 and lipogenesis.",
+          "cited_source_ids": [
+            "D1686997"
+          ]
+        },
+        {
+          "case_id": "scifact-866",
+          "claim_id": "C866",
+          "claim": "Nuclear transfer from adult human fibroblasts to human oocytes can give rise to blastocysts containing expandable pluripotent cells.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D4457834",
+            "D37822406",
+            "D10546779",
+            "D14192687",
+            "D29641682",
+            "D4462419",
+            "D13513790",
+            "D4784069"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "human_review_required",
+          "evidence_quote": "",
+          "cited_source_ids": [
+            "D37822406"
+          ]
+        },
+        {
+          "case_id": "scifact-767",
+          "claim_id": "C767",
+          "claim": "Men are more susceptible to death due to pneumonia when compared to women.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "contradicted",
+          "expected_source_ids": [
+            "D2488880"
+          ],
+          "ranked_source_ids": [
+            "D2488880",
+            "D456304",
+            "D17124832",
+            "D3413083",
+            "D12709184",
+            "D5939172",
+            "D6070278",
+            "D18084826"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "contradicted",
+          "evidence_quote": "Factors associated with mortality due to pneumonia by logistic regression included higher APACHE II score, malignancy, diabetes mellitus, diagnosis of infection more than 7 days after admission, older age, transplantation, and female gender (OR for death, 2.25; 95% CI, 1.17-4.32; P = .02).",
+          "cited_source_ids": [
+            "D2488880"
+          ]
+        },
+        {
+          "case_id": "scifact-1081",
+          "claim_id": "C1081",
+          "claim": "Side effects associated with antidepressants do not represent a mortality risk to postmenopausal women.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "contradicted",
+          "expected_source_ids": [
+            "D5691302"
+          ],
+          "ranked_source_ids": [
+            "D5691302",
+            "D1428840",
+            "D2488880",
+            "D16701509",
+            "D32534305",
+            "D16812091",
+            "D16098747",
+            "D12102963"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "human_review_required",
+          "evidence_quote": "",
+          "cited_source_ids": [
+            "D5691302"
+          ]
+        },
+        {
+          "case_id": "scifact-351",
+          "claim_id": "C351",
+          "claim": "Distant CREs are important for transcriptional regulation.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D8494570",
+            "D16237005",
+            "D22428640",
+            "D21373240",
+            "D7416873",
+            "D38009906",
+            "D1754001",
+            "D6455142"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "weakly_supported",
+          "evidence_quote": "most constitutive CTCF loci were distant from transcription start sites and lacked CpG islands but were enriched with the full-spectrum CTCF motifs",
+          "cited_source_ids": [
+            "D8494570"
+          ]
+        },
+        {
+          "case_id": "scifact-21",
+          "claim_id": "C21",
+          "claim": "70% of burn patients are admitted for hospitalization and further treatment after appearing at hospital emergency wards or outpatient clinics.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D41493639",
+            "D19464037",
+            "D4824840",
+            "D27188320",
+            "D19408393",
+            "D24276902",
+            "D10408324",
+            "D980196"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-367",
+          "claim_id": "C367",
+          "claim": "Early patent ductus ateriosus (PDA) screening decreases in-hospital mortality.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D27099731"
+          ],
+          "ranked_source_ids": [
+            "D27099731",
+            "D9113824",
+            "D19464037",
+            "D4824840",
+            "D21495419",
+            "D21301090",
+            "D756887",
+            "D22942787"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "weakly_supported",
+          "evidence_quote": "In this national population-based cohort of extremely preterm infants, screening echocardiography before day 3 of life was associated with lower in-hospital mortality and likelihood of pulmonary hemorrhage but not with differences in necrotizing enterocolitis, severe bronchopulmonary dysplasia, or severe cerebral lesions. However, results of the instrumental variable analysis leave some ambiguity in the interpretation, and longer-term evaluation is needed to provide clarity.",
+          "cited_source_ids": [
+            "D27099731"
+          ]
+        },
+        {
+          "case_id": "scifact-779",
+          "claim_id": "C779",
+          "claim": "Mice lacking Sirt1 in Sf1-expressing neurons have increased susceptibility to diet-induced obesity and insulin resistance.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D13001323"
+          ],
+          "ranked_source_ids": [
+            "D13001323",
+            "D6227220",
+            "D1907601",
+            "D597790",
+            "D6042706",
+            "D5268462",
+            "D120626",
+            "D2605032"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "supported",
+          "evidence_quote": "mice lacking SIRT1 in steroidogenic factor 1 (SF1) neurons are hypersensitive to dietary obesity owing to maladaptive energy expenditure. Also, mutant mice have increased susceptibility to developing dietary T2DM due to insulin resistance in skeletal muscle.",
+          "cited_source_ids": [
+            "D13001323"
+          ]
+        },
+        {
+          "case_id": "scifact-404",
+          "claim_id": "C404",
+          "claim": "Expression of oncolytic virus antigens as peptides permits additional protection against relapse.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D18938992",
+            "D8671456",
+            "D27437459",
+            "D30041340",
+            "D8883846",
+            "D24922825",
+            "D12966719",
+            "D708425"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-758",
+          "claim_id": "C758",
+          "claim": "Marmosets have a brain region homologous to Broca's area.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D14195528",
+            "D1889358",
+            "D11581157",
+            "D9704467",
+            "D60515890",
+            "D14328288",
+            "D7157436",
+            "D14192687"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-345",
+          "claim_id": "C345",
+          "claim": "Differentiated E2f-1, -2, -3 TKO cells in the intestine do not exhibit apoptosis.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D4394817",
+            "D6182947",
+            "D9612317",
+            "D42873134",
+            "D7688110",
+            "D42782688",
+            "D502591",
+            "D34439544"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-565",
+          "claim_id": "C565",
+          "claim": "In S. cerevisiae, the absence of RNA surveillance pathways causes sensitivity to high iron conditions.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D16120395"
+          ],
+          "ranked_source_ids": [
+            "D16120395",
+            "D26596106",
+            "D42267740",
+            "D23604601",
+            "D4421742",
+            "D1754001",
+            "D25937484",
+            "D7225911"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "supported",
+          "evidence_quote": "RNase III-deficient cells are hypersensitive to high iron concentrations, suggesting that Rnt1p-mediated RNA surveillance is required to prevent iron toxicity. These results show that RNA surveillance through multiple ribonucleolytic pathways plays a role in iron homeostasis in yeast to avoid the potentially toxic effects of the expression of the iron starvation response in iron-replete conditions.",
+          "cited_source_ids": [
+            "D16120395"
+          ]
+        },
+        {
+          "case_id": "scifact-945",
+          "claim_id": "C945",
+          "claim": "Physical activity level has no association with the difference in maximal oxygen consumption between black and white youth.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D26112696",
+            "D11201004",
+            "D4449524",
+            "D8428935",
+            "D13083189",
+            "D1907601",
+            "D2605032",
+            "D5939172"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "contradicted",
+          "evidence_quote": "In conclusion, our data indicate that African-American and Caucasian children have similar rates of VO2 at rest and during submaximal exercise, but VO2max is approximately 15% lower in African-American children, independent of soft LTM, FM, leg LTM, TEE, and AEE.",
+          "cited_source_ids": [
+            "D26112696"
+          ]
+        },
+        {
+          "case_id": "scifact-1356",
+          "claim_id": "C1356",
+          "claim": "Vaccinating the gastrointestinal tract induces protection of rectal and vaginal mucosa.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D13764090"
+          ],
+          "ranked_source_ids": [
+            "D13764090",
+            "D43378932",
+            "D708425",
+            "D12966719",
+            "D40312663",
+            "D14260013",
+            "D86326468",
+            "D10675756"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "supported",
+          "evidence_quote": "vaccination through large intestinal mucosa, previously proven protective for both of these mucosal sites in animal studies, can be achieved successfully by direct intracolorectal (i.c.r.) administration, but this route is clinically impractical. Oral vaccine delivery seems preferable but runs the risk of the vaccine's destruction in the upper gastrointestinal tract. Therefore, we designed a large intestine-targeted oral delivery with pH-dependent microparticles containing vaccine nanoparticles, which induced colorectal immunity in mice comparably to colorectal vaccination and protected against rectal and vaginal viral challenge. Conversely, vaccine targeted to the small intestine induced only small intestinal immunity and provided no rectal or vaginal protection, demonstrating functional compartmentalization within the gut mucosal immune system. Therefore, using this oral vaccine delivery system to target the large intestine, but not the small intestine, may represent a feasible new strategy for immune protection of rectal and vaginal mucosa.",
+          "cited_source_ids": [
+            "D13764090"
+          ]
+        },
+        {
+          "case_id": "scifact-308",
+          "claim_id": "C308",
+          "claim": "DUSP4 downregulation deactivates the Ras-ERK pathway",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "contradicted",
+          "expected_source_ids": [
+            "D7821634"
+          ],
+          "ranked_source_ids": [
+            "D7821634",
+            "D28651643",
+            "D4920376",
+            "D4662264",
+            "D26887439",
+            "D12622860",
+            "D38143689",
+            "D29073751"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "contradicted",
+          "evidence_quote": "Thus, DUSP4 downregulation activates the Ras-ERK pathway in BLBC, resulting in an attenuated response to anti-cancer chemotherapy.",
+          "cited_source_ids": [
+            "D7821634"
+          ]
+        },
+        {
+          "case_id": "scifact-607",
+          "claim_id": "C607",
+          "claim": "Increased diastolic blood pressure (DBP) is associated with abdominal aortic aneurysm.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D4506414"
+          ],
+          "ranked_source_ids": [
+            "D4506414",
+            "D30639847",
+            "D12549585",
+            "D21616324",
+            "D44660616",
+            "D53779698",
+            "D19804204",
+            "D3825750"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "human_review_required",
+          "evidence_quote": "",
+          "cited_source_ids": [
+            "D4506414"
+          ]
+        },
+        {
+          "case_id": "scifact-22",
+          "claim_id": "C22",
+          "claim": "76-85% of people with severe mental disorder receive no treatment in low and middle income countries.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D6490571"
+          ],
+          "ranked_source_ids": [
+            "D6490571",
+            "D14682243",
+            "D73473433",
+            "D15041758",
+            "D25293616",
+            "D27711043",
+            "D24159217",
+            "D581832"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "weakly_supported",
+          "evidence_quote": "35.5% to 50.3% of serious cases in developed countries and 76.3% to 85.4% in less-developed countries received no treatment in the 12 months before the interview.",
+          "cited_source_ids": [
+            "D6490571"
+          ]
+        },
+        {
+          "case_id": "scifact-853",
+          "claim_id": "C853",
+          "claim": "Nonhuman primates are incapable of producing neutralizing antibodies in reponse to the Eilat virus (EILV) produced in mosquitos.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "contradicted",
+          "expected_source_ids": [
+            "D24922825"
+          ],
+          "ranked_source_ids": [
+            "D24922825",
+            "D21274496",
+            "D8883846",
+            "D22937651",
+            "D1259359",
+            "D37269418",
+            "D8069939",
+            "D17454301"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "contradicted",
+          "evidence_quote": "A single dose of EILV/CHIKV produced in mosquito cells elicited rapid (within 4 d) and long-lasting (>290 d) neutralizing antibodies that provided complete protection in two different mouse models. In nonhuman primates, EILV/CHIKV elicited rapid and robust immunity that protected against viremia and telemetrically monitored fever.",
+          "cited_source_ids": [
+            "D24922825"
+          ]
+        },
+        {
+          "case_id": "scifact-334",
+          "claim_id": "C334",
+          "claim": "Depletion of nitric oxide is responsible for vasospasm.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D25079962"
+          ],
+          "ranked_source_ids": [
+            "D25079962",
+            "D42873134",
+            "D17097974",
+            "D2533768",
+            "D32985041",
+            "D23122306",
+            "D13448422",
+            "D2352142"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "weakly_supported",
+          "evidence_quote": "Decreased bioavailability of nitric oxide has been associated with the development of cerebral vasospasm.",
+          "cited_source_ids": [
+            "D25079962"
+          ]
+        },
+        {
+          "case_id": "scifact-1308",
+          "claim_id": "C1308",
+          "claim": "Tonic signaling from the scFv is amplified by MyD88/CD40.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D18231807",
+            "D2734421",
+            "D28647122",
+            "D16066726",
+            "D30675656",
+            "D6493422",
+            "D196664003",
+            "D3730196"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-80",
+          "claim_id": "C80",
+          "claim": "Acute ablation of KRAS causes severe growth impairment.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D15365719",
+            "D4920376",
+            "D3210545",
+            "D33796570",
+            "D40349336",
+            "D23190392",
+            "D11441172",
+            "D11271123"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-666",
+          "claim_id": "C666",
+          "claim": "Kir7.1 modulates channel activity by the G protein-coupled melanocortin-4 receptor (MC4R) in the paraventricular nucleus of the hypothalamus.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D4469125"
+          ],
+          "ranked_source_ids": [
+            "D4469125",
+            "D32250572",
+            "D1070920",
+            "D22500262",
+            "D10342807",
+            "D4362729",
+            "D32611468",
+            "D885056"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "human_review_required",
+          "evidence_quote": "",
+          "cited_source_ids": [
+            "D4469125"
+          ]
+        },
+        {
+          "case_id": "scifact-1115",
+          "claim_id": "C1115",
+          "claim": "Surgical treatment is not superior to non-surgical in treating adults with displaced fractures of the proximal humerus.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D44048701"
+          ],
+          "ranked_source_ids": [
+            "D44048701",
+            "D19878070",
+            "D16812091",
+            "D22688699",
+            "D6477536",
+            "D20186513",
+            "D9555784",
+            "D18691097"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "supported",
+          "evidence_quote": "Among patients with displaced proximal humeral fractures involving the surgical neck, there was no significant difference between surgical treatment compared with nonsurgical treatment in patient-reported clinical outcomes over 2 years following fracture occurrence. These results do not support the trend of increased surgery for patients with displaced fractures of the proximal humerus.",
+          "cited_source_ids": [
+            "D44048701"
+          ]
+        },
+        {
+          "case_id": "scifact-258",
+          "claim_id": "C258",
+          "claim": "Cholesterol loading induces KLF4 expression in VSMCs, resulting in the expression of pro-inflammatory cytokines.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D22080671"
+          ],
+          "ranked_source_ids": [
+            "D25148216",
+            "D30908508",
+            "D22080671",
+            "D29509926",
+            "D11557602",
+            "D41877386",
+            "D22150633",
+            "D11233339"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "human_review_required",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-382",
+          "claim_id": "C382",
+          "claim": "Environmentally-induced senescence is mimicked in disease modeling by adding specific molecules to the culture system.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D11659421"
+          ],
+          "ranked_source_ids": [
+            "D25419778",
+            "D7506409",
+            "D31293581",
+            "D11659421",
+            "D6896063",
+            "D13814480",
+            "D23117928",
+            "D11328820"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-403",
+          "claim_id": "C403",
+          "claim": "Expression of oncolytic virus antigens as peptides makes relapse more likely.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D18938992",
+            "D27437459",
+            "D8671456",
+            "D30041340",
+            "D15593561",
+            "D544971",
+            "D27567994",
+            "D6182947"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        }
+      ]
+    }
+  },
+  "limitations": [
+    "Public benchmark may be present in model pretraining.",
+    "Test is upstream development, not the unreleased SciFact test set.",
+    "Unsupported means no upstream annotated evidence, not proof of falsehood.",
+    "Gold evidence is included in the candidate pool by construction.",
+    "Abstracts are passages; page number 1 is a container marker, not a journal page.",
+    "Only three verdict classes are expert annotated; other policy classes use separate tests.",
+    "Open-weight models and windowing differ from the hosted Qwen pipeline.",
+    "Cross-encoder scores rank relevance, not entailment or calibrated truth probabilities.",
+    "Inference errors are preserved as missing predictions; cached failed chunks are not silently retried."
+  ]
+}

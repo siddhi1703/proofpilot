@@ -1,0 +1,103 @@
+{
+  "audit_id": "audit_8eec07c4a4e3",
+  "created_at": "2026-10-26T22:18:08.488187+00:00",
+  "draft_characters": 99,
+  "source": {
+    "filename": "pilot.txt",
+    "page_count": 1,
+    "chunk_count": 1,
+    "character_count": 133
+  },
+  "summary": {
+    "total_claims": 3,
+    "supported": 2,
+    "weakly_supported": 0,
+    "unsupported": 1,
+    "contradicted": 0,
+    "human_review_required": 0,
+    "privacy_findings": 0,
+    "publication_status": "blocked"
+  },
+  "claim_audits": [
+    {
+      "claim": {
+        "id": "C1",
+        "text": "The pilot enrolled 120 editors.",
+        "type": "general_fact",
+        "importance": "high",
+        "requires_source": true
+      },
+      "verdict": "supported",
+      "explanation": "The candidate evidence explicitly states that 'The pilot enrolled 120 editors.' This directly establishes the claim.",
+      "evidence_quote": "The pilot enrolled 120 editors.",
+      "citations": [
+        {
+          "source_id": "S1",
+          "filename": "pilot.txt",
+          "page_number": 1,
+          "text": "The pilot enrolled 120 editors. Editing time fell by 16 percent. Staffing costs were unchanged. Advertising revenue was not assessed.",
+          "retrieval_score": 0.7312902212142944,
+          "rerank_score": null
+        }
+      ],
+      "needs_human_review": false
+    },
+    {
+      "claim": {
+        "id": "C2",
+        "text": "Editing time fell by 16 percent.",
+        "type": "statistic",
+        "importance": "high",
+        "requires_source": true
+      },
+      "verdict": "supported",
+      "explanation": "The candidate evidence explicitly states that 'Editing time fell by 16 percent.' This directly establishes the claim.",
+      "evidence_quote": "Editing time fell by 16 percent.",
+      "citations": [
+        {
+          "source_id": "S1",
+          "filename": "pilot.txt",
+          "page_number": 1,
+          "text": "The pilot enrolled 120 editors. Editing time fell by 16 percent. Staffing costs were unchanged. Advertising revenue was not assessed.",
+          "retrieval_score": 0.6888771057128906,
+          "rerank_score": null
+        }
+      ],
+      "needs_human_review": false
+    },
+    {
+      "claim": {
+        "id": "C3",
+        "text": "Advertising revenue increased.",
+        "type": "general_fact",
+        "importance": "medium",
+        "requires_source": true
+      },
+      "verdict": "unsupported",
+      "explanation": "The candidate evidence states that 'Advertising revenue was not assessed,' which means there is no evidence to support the claim that advertising revenue increased. The claim is not established by the evidence.",
+      "evidence_quote": "",
+      "citations": [
+        {
+          "source_id": "S1",
+          "filename": "pilot.txt",
+          "page_number": 1,
+          "text": "The pilot enrolled 120 editors. Editing time fell by 16 percent. Staffing costs were unchanged. Advertising revenue was not assessed.",
+          "retrieval_score": 0.32174259424209595,
+          "rerank_score": null
+        }
+      ],
+      "needs_human_review": true
+    }
+  ],
+  "privacy_findings": [],
+  "pipeline": {
+    "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+    "rerank_model": "cross-encoder/ms-marco-MiniLM-L6-v2",
+    "verdict_model": "Qwen/Qwen3-4B-Instruct-2507",
+    "retrieved_per_claim": 8,
+    "reranked_per_claim": 4,
+    "reranker_used": false,
+    "fallback_claim_ids": []
+  },
+  "warnings": []
+}

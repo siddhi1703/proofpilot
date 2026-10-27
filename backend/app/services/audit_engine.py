@@ -27,7 +27,9 @@ def run_audit(draft: str, document: ParsedDocument) -> AuditResponse:
     privacy_findings = scan_privacy(draft)
 
     verdict_counts = Counter(audit.verdict for audit in claim_audits)
-    has_blocker = any(
+    has_blocker = not claim_audits or any(
+        audit.needs_human_review
+        or
         audit.verdict in {"unsupported", "contradicted", "human_review_required"}
         or (audit.claim.importance == "high" and audit.verdict != "supported")
         for audit in claim_audits
@@ -62,5 +64,10 @@ def run_audit(draft: str, document: ParsedDocument) -> AuditResponse:
             retrieved_per_claim=RETRIEVAL_TOP_K,
             reranked_per_claim=RERANK_TOP_K,
             reranker_used=retrieval.reranker_used,
+            fallback_claim_ids=retrieval.fallback_claim_ids,
+        ),
+        warnings=(
+            (["No factual claims were extracted; this draft has not been verified."] if not claims else [])
+            + (["Reranking failed for some claims; cosine retrieval was used."] if retrieval.fallback_claim_ids else [])
         ),
     )

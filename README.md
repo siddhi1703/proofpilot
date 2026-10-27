@@ -15,8 +15,8 @@ Built for the **Global AI Hackathon Series with Qwen Cloud**, Track 4:
 - Five explicit verdicts: supported, weak support, unsupported, contradicted,
   and human review required
 - Deterministic privacy scanning runs beside the AI pipeline
-- Invalid or invented evidence quotes automatically fail closed to human review
-- One-click pdf audit report for an inspectable decision trail
+- Invalid quotes, unknown citations, and unsupported numeric coverage require human review
+- One-click PDF audit report and inspectable JSON API responses
 
 ## Architecture
 
@@ -25,7 +25,7 @@ flowchart LR
     U["Editor: draft + PDF/TXT"] --> UI["React + TypeScript + Tailwind"]
     UI --> API["FastAPI /api/audits/run"]
     API --> P["PyMuPDF parser + page-aware chunks"]
-    API --> C["Qwen 3.7 Plus claim extraction"]
+    API --> C["Qwen qwen3.6-flash claim extraction (configurable)"]
     P --> E["Qwen text-embedding-v4"]
     C --> E
     E --> R["NumPy cosine retrieval: top 8"]
@@ -53,18 +53,73 @@ documents become temporary retrieval context for that audit only.
 
 ## Evaluation
 
-On the included transparent 12-claim synthetic benchmark, ProofPilot achieved:
+The main benchmark now uses **400 upstream expert-annotated SciFact claims**:
+100 development and 300 fixed test claims, with **16 candidate abstracts per
+case** and no shared source documents between the splits. Separate synthetic
+policy examples cover all five application verdicts. See the
+[evaluation guide](evaluation/README.md) and
+[data attribution and licenses](evaluation/datasets/scifact-v2/ATTRIBUTION.md).
 
-- **100% verdict accuracy** (12/12)
-- **100% retrieval Recall@4** (12/12)
-- **50% retrieval Recall@1** (6/12)
+The complete 300-case test retrieval comparison produced:
 
-These are hackathon smoke-test results, not production-scale claims. The cases,
-expected labels, runner, and recorded result are all in `evaluation/`.
+| Method | Recall@1 | Recall@4 |
+| --- | ---: | ---: |
+| Offline BM25 | 63.87% | 81.83% |
+| MiniLM cosine | 69.33% | 92.25% |
+| MiniLM cross-encoder | 80.01% | 94.47% |
 
-The six-claim reference demo completed in **41.1 seconds** locally after
-combining embedding batches and skipping unnecessary reranking for a
-single-chunk source. Actual latency varies with network and provider load.
+Recall averages labeled-abstract coverage over the **188 evidence-bearing
+claims**, in controlled 16-abstract pools. The other 112 claims have no annotated
+retrieval target. These figures measure retrieval, not verdict accuracy.
+
+The runner compares embedding-only retrieval with the production reranking
+policy on identical cached embeddings and reports per-label verdict metrics,
+confidence intervals, evidence rankings, missing outputs, fallback counts, and
+model/code/dataset provenance. The hosted Qwen preflight encountered an exhausted
+free quota. A separate free Colab profile has completed a ten-case development
+pilot using open weights; its partial report is recorded in
+`evaluation/reports/colab-development-pilot-10.json`. The full 100-case development
+run achieved **50% exact-label verdict accuracy** (macro F1 0.5842), with no missing
+outputs or observed false-supported predictions. It was conservative: 21 claims
+received weak support and 14 required human review. A separate three-class NLI
+diagnostic achieved **65.67% test accuracy on all 300 claims**, with 22
+false-supported outputs; its label policy differs from the application.
+The final five-verdict Qwen test
+report has not been recovered; the last confirmed checkpoint was 40/300.
+These measured limitations matter alongside retrieval performance.
+
+```bash
+cd backend
+# No key or network required:
+python benchmark.py run --dataset ../evaluation/datasets/scifact-v2/test.json \
+  --mode lexical --output ../evaluation/reports/my-baseline.json
+
+# Requires working Qwen access; start with development:
+python benchmark.py run --dataset ../evaluation/datasets/scifact-v2/development.json \
+  --mode compare --verdicts --output ../evaluation/reports/my-model-development.json
+```
+
+The original 12-claim scores remain archived in `evaluation/results.json`;
+they are smoke-test history, not the headline quality evidence. Candidate pools
+include known evidence plus hard negatives, so results do not represent
+full-corpus retrieval. Public test data may have appeared in model pretraining.
+
+## Free cloud notebook
+
+Use [the Colab notebook](colab/ProofPilot_Free_Colab.ipynb) with its matching
+backend/data bundle to run open-weight models on a free Colab GPU. No paid
+inference API key or laptop model installation is required. The notebook starts
+with a ten-case development pilot. It supports Google Drive storage and a native
+session-upload fallback with exportable checkpoints. Free GPU availability is
+limited. See [setup, model differences, and checkpoint recovery](colab/README.md).
+
+Generate the matched notebook and source/data archive before uploading them to
+Colab, and regenerate both after changing code or data. This packaging step uses
+only Python's standard library and does not load models on your laptop:
+
+```bash
+python scripts/build_colab.py
+```
 
 ## Run locally
 
@@ -124,10 +179,20 @@ Then open `http://localhost:9000`.
 
 ## Safety and privacy
 
-ProofPilot is a decision-support tool, not an automatic publisher. It does not
-persist uploaded files or audit results. High-risk or unverifiable findings
-block publication until a person reviews them. The public demo should not be
-used with confidential, regulated, or legally privileged data.
+ProofPilot is a decision-support tool. The server does not persist uploaded
+files or audit results; document excerpts and draft claims are sent to Qwen for
+processing. The browser stores the six most recent reports, including quoted
+source passages, in local storage for its existing history feature. Avoid
+confidential material on a shared device or public demo.
+
+Missing/duplicate verdicts, invalid citations, non-exact quotes, and missing
+numeric coverage in supported claims require human review. Quote checks validate
+source presence, not logical entailment. All non-supported verdicts block
+publication; a supported report still requires final editor review. No extracted
+claims means the draft has not been verified and is blocked. Drafts that reach
+the 12-claim extraction cap are rejected with a request to split the draft, rather
+than presenting a potentially truncated audit as complete. Reranker outages are
+reported explicitly when cosine fallback is used.
 
 ## License
 

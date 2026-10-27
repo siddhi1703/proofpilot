@@ -105,6 +105,7 @@ class PipelineDetails(BaseModel):
     retrieved_per_claim: int = Field(ge=1)
     reranked_per_claim: int = Field(ge=1)
     reranker_used: bool
+    fallback_claim_ids: list[str] = Field(default_factory=list)
 
 
 class AuditResponse(BaseModel):
@@ -116,3 +117,4 @@ class AuditResponse(BaseModel):
     claim_audits: list[ClaimAudit]
     privacy_findings: list[PrivacyFinding]
     pipeline: PipelineDetails
+    warnings: list[str] = Field(default_factory=list)
