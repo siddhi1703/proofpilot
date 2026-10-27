@@ -22,7 +22,7 @@ def code(text):
 def build():
     DEST.mkdir(exist_ok=True)
     fixed = ["backend/benchmark.py", "backend/colab_runner.py", "backend/main.py", "backend/pytest.ini",
-             "colab/requirements-colab.txt", "colab/nli_baseline.py", "colab/checkpoints.py", "colab/README.md", "evaluation/README.md", "README.md", "LICENSE",
+             "colab/requirements-colab.txt", "colab/nli_baseline.py", "colab/checkpoints.py", "colab/README.md", "evaluation/README.md", "evaluation/ERROR_ANALYSIS.md", "README.md", "LICENSE",
              "scripts/build_colab.py", "scripts/build_resume.py"]
     paths = [ROOT / p for p in fixed]
     paths += list((ROOT / "backend/app").rglob("*.py"))
@@ -107,6 +107,8 @@ print('Verified', len(manifest['files']), 'source/data files.')'''),
     markdown('''## 2a. Restore a saved run (optional)
 
 For a new run, leave `RESTORE_CHECKPOINT` empty. To continue a previous session, upload its checkpoint ZIP through **Files > Upload to session storage**, then enter its `/content/...zip` path below. If you saved the printed archive SHA-256, enter it too.
+
+If the same Drive output folder already contains your newer progress, leave `RESTORE_CHECKPOINT` empty and reuse those files directly. Do not restore an older archive over newer reports.
 
 Restoration checks paths, JSON, archive integrity and manifest hashes when present. It refuses to overwrite a different existing result. Older ProofPilot archives are supported; vector caches are rebuilt as needed. Completed inference chunks are reused only when code, models, data and package versions match.'''),
     code('''import importlib.util

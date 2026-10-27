@@ -44,7 +44,7 @@ See `evaluation/reports/scifact-v2-test-bm25.json` for inspectable results and
 
 ## Verification
 
-- Backend: 64 tests passed locally, including API integration, safety behavior,
+- Backend: 66 tests passed locally, including API integration, safety behavior,
   malformed embeddings, fallback visibility, missing-output scoring, dataset
   separation, and the complete comparison runner with mocked provider outputs.
 - Frontend: production build and ESLint passed.
@@ -71,9 +71,14 @@ See `evaluation/reports/scifact-v2-test-bm25.json` for inspectable results and
   policy and is not an automatic-approval replacement. Its configuration was
   selected on development and frozen before test.
 - The executed notebook restored a verified 50/300 portable checkpoint. The
-  stream log reaches 70, but the additional twenty cases are not archived.
+  original stream log reaches 70, but the additional twenty cases were not archived.
   The first 50 scored 48% exact-label accuracy, with no missing outputs or
-  infrastructure errors. The full report remains pending; no final score is claimed.
+  infrastructure errors. The resumed run has now completed all 300 test claims:
+  50.67% exact-label accuracy, macro F1 0.6038, six false-supported predictions
+  against gold labels, four missing outputs and no reranker fallbacks. Its source,
+  model and package configuration remained frozen; the recovered 50 predictions
+  and every previously recorded evidence ranking are unchanged. Metrics were
+  independently recomputed from the exported claim results.
 - A recovery builder verifies embedded archive checksums, report/chunk agreement
   and the pinned gold labels without executing notebook code. It creates a
   recovery notebook that pins the original model revisions and software stack,
@@ -84,9 +89,9 @@ See `evaluation/reports/scifact-v2-test-bm25.json` for inspectable results and
 - The live application demo correctly blocked an invented claim. Synthetic
   policy-v3 examples scored 10/10 after matching production claim-ID format;
   the original failed PC-prefixed run is preserved and explained.
-- Drive mounting failed with a credential-propagation error. The session uses
-  Colab's native file upload and checkpoint ZIPs; the pilot report and archive
-  were backed up to the user's selected Google Drive account.
+- The original session's Drive mount failed with a credential-propagation error,
+  so it used native uploads and portable checkpoint ZIPs. The recovery notebook
+  mounted Drive successfully and saves each new five-case checkpoint there.
 
 ## Continuing evaluation
 
@@ -107,5 +112,7 @@ running `test.json`; do not tune to test scores. Record a separate policy run.
 A versioned newsroom-domain evaluation and larger-corpus retrieval are still
 needed for claims beyond this controlled scientific-abstract benchmark.
 
-Changes are local and uncommitted. Nothing has been pushed or deployed, and the
-historical 12-claim results have been preserved.
+The implementation and earlier evaluation reports were published to GitHub
+main in PR #1. Checkpoint recovery, its additional safeguards and the completed
+five-verdict test report are in PR #2.
+The historical 12-claim results have been preserved.

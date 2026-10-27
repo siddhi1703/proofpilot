@@ -84,10 +84,13 @@ outputs or observed false-supported predictions. It was conservative: 21 claims
 received weak support and 14 required human review. A separate three-class NLI
 diagnostic achieved **65.67% test accuracy on all 300 claims**, with 22
 false-supported outputs; its label policy differs from the application.
-The final five-verdict Qwen test
-report is still pending. A verified **50/300 checkpoint** has now been recovered
-from the executed notebook and can resume the remaining 250 cases.
-These measured limitations matter alongside retrieval performance.
+The completed five-verdict Qwen test achieved **50.67% exact-label accuracy**
+(macro F1 0.6038) on all 300 claims, including four missing outputs. It produced
+six supported predictions against non-supported gold labels, with 88.24%
+supported precision and 36.29% supported recall. All predictions and failures
+are retained in the [full report](evaluation/reports/colab-test-verdicts-300.json).
+The [error analysis](evaluation/ERROR_ANALYSIS.md) explains why strong retrieval
+and exact quotations still do not establish semantic correctness or publication safety.
 
 ```bash
 cd backend

@@ -252,7 +252,7 @@ Select **Runtime > Change runtime type > T4 GPU**. Upload `proofpilot-resume-sou
         builder.code(original_code('import os, sys')),
         builder.markdown('## Storage\nApprove Drive mounting when prompted. If it fails, change `USE_DRIVE` to `False`; session-mode backups must be downloaded before disconnecting.'),
         builder.code(storage_code), builder.markdown('## Verify the source bundle'),
-        builder.code(original_code('EXPECTED_SHA256 =')), builder.markdown('## Restore the verified checkpoint'),
+        builder.code(original_code('EXPECTED_SHA256 =')), builder.markdown('## Restore the verified checkpoint\nFor the first recovery, use the prefilled ZIP path. If this Drive output folder already contains newer progress from this notebook, set `RESTORE_CHECKPOINT = \'\'` before running the next cell. Keep the newer files in place; restoring the older ZIP over them is deliberately refused.'),
         builder.code(restore_code), builder.markdown('## Restore the recorded software versions'),
         builder.code(dependencies), builder.markdown('## Check the implementation'),
         builder.code(original_code("'-m', 'pytest'")), builder.markdown('## Restore the exact model revisions'),
@@ -268,7 +268,8 @@ Select **Runtime > Change runtime type > T4 GPU**. Upload `proofpilot-resume-sou
         '1. Open ProofPilot_Resume_Qwen.ipynb in Google Colab using your project account.\n'
         '2. Select a free T4 GPU and upload the two proofpilot-resume ZIPs through the Files panel.\n'
         f"3. Run the cells in order. The first {status['portable_cases']} test cases are reused; the other {status['remaining_cases']} are evaluated.\n"
-        '4. Keep Drive storage enabled for durable results. Save proofpilot-test-300.zip when complete.\n')
+        '4. Keep Drive storage enabled for durable results. Save proofpilot-test-300.zip when complete.\n'
+        '5. After a runtime restart with newer results already in Drive, leave RESTORE_CHECKPOINT empty to reuse those files directly.\n')
     package = destination / 'ProofPilot_Resume_Package.zip'
     with zipfile.ZipFile(package, 'w', zipfile.ZIP_DEFLATED) as bundle:
         for name in ['ProofPilot_Resume_Qwen.ipynb', 'proofpilot-resume-source.zip',
