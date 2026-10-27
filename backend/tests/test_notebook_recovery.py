@@ -46,3 +46,21 @@ def test_corrupt_highest_backup_is_not_silently_replaced_by_an_older_run():
 def test_unexecuted_notebook_has_no_recoverable_checkpoint():
     with pytest.raises(ValueError, match='No portable'):
         recovery.extract_backup({'cells': [{'cell_type': 'code', 'source': ['print("test")'], 'outputs': []}]})
+
+
+def test_checkpoint_metadata_cannot_inject_dependency_options_or_urls():
+    versions = {name: '1.0.0' for name in recovery.PACKAGES}
+    config = {'packages': {name: versions[name] for name in recovery.CORE_PACKAGES}}
+    assert len(recovery.frozen_pins({'packages': versions}, config)) == len(versions) - 1
+    with pytest.raises(ValueError, match='dependency names'):
+        recovery.frozen_pins({'packages': {**versions, '--index-url': 'https://example.test'}}, config)
+    with pytest.raises(ValueError, match='Invalid pinned version'):
+        recovery.frozen_pins({'packages': {**versions, 'openai': '1.0@https://example.test'}}, config)
+
+
+def test_disagreeing_package_records_are_not_mixed():
+    versions = {name: '1.0.0' for name in recovery.PACKAGES}
+    config = {'packages': {name: versions[name] for name in recovery.CORE_PACKAGES}}
+    config['packages']['numpy'] = '2.0.0'
+    with pytest.raises(ValueError, match='versions disagree'):
+        recovery.frozen_pins({'packages': versions}, config)

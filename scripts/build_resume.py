@@ -13,6 +13,22 @@ import tempfile
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
+PACKAGES = {'torch', 'transformers', 'sentence-transformers', 'bitsandbytes', 'accelerate',
+            'numpy', 'tokenizers', 'sentencepiece', 'safetensors', 'huggingface-hub',
+            'pydantic', 'openai', 'PyMuPDF', 'fastapi', 'protobuf'}
+CORE_PACKAGES = {'torch', 'transformers', 'sentence-transformers', 'bitsandbytes', 'accelerate', 'numpy'}
+
+
+def frozen_pins(environment, configuration):
+    versions = environment['packages']
+    if set(versions) != PACKAGES or set(configuration['packages']) != CORE_PACKAGES:
+        raise ValueError('Unexpected dependency names in the checkpoint environment.')
+    for name, value in versions.items():
+        if not isinstance(value, str) or not re.fullmatch(r'\d+(?:\.\d+)+(?:[A-Za-z0-9.+-]*)', value):
+            raise ValueError(f'Invalid pinned version for {name}.')
+    if any(versions[name] != value for name, value in configuration['packages'].items()):
+        raise ValueError('Checkpoint and environment package versions disagree.')
+    return [name + '==' + value for name, value in versions.items() if name != 'torch']
 
 
 class BackupTextareas(HTMLParser):
@@ -93,7 +109,7 @@ def source_fingerprint():
     paths = sorted((ROOT / 'backend/app').rglob('*.py')) + [ROOT / 'backend/benchmark.py', ROOT / 'backend/colab_runner.py']
     digest = hashlib.sha256()
     for path in paths:
-        digest.update(str(path.relative_to(ROOT)).encode())
+        digest.update(path.relative_to(ROOT).as_posix().encode())
         digest.update(path.read_bytes())
     return digest.hexdigest()
 
@@ -118,7 +134,8 @@ def build(notebook_path, destination):
     report_path, report = max(reports, key=lambda pair: pair[1]['completed_cases'])
     config = report['configuration']
     dataset_path = ROOT / 'evaluation/datasets/scifact-v2/test.json'
-    if (report['completed_cases'] != status['portable_cases'] or report['dataset_total_cases'] != 300
+    if (report['completed_cases'] != status['portable_cases'] or not 0 < report['completed_cases'] <= 300
+            or report['completed_cases'] % 5 or report['dataset_total_cases'] != 300
             or config['dataset_sha256'] != hashlib.sha256(dataset_path.read_bytes()).hexdigest()
             or config['code_sha256'] != source_fingerprint()
             or config['mode'] != 'rerank' or config['verdict_batch_size'] != 1 or config.get('verdicts') is not True):
@@ -170,8 +187,7 @@ def build(notebook_path, destination):
         "RESTORE_CHECKPOINT = ''", "RESTORE_CHECKPOINT = '/content/proofpilot-resume-checkpoints.zip'").replace(
         "RESTORE_SHA256 = ''", f"RESTORE_SHA256 = {hashlib.sha256(portable.read_bytes()).hexdigest()!r}")
     environment = json.loads((outputs / 'environment-colab.json').read_text())
-    pins = [name + '==' + value for name, value in environment['packages'].items()
-            if name != 'torch' and value != 'not-installed']
+    pins = frozen_pins(environment, config)
     dependencies = f'''import subprocess, importlib.metadata
 assert importlib.metadata.version('torch') == {config['packages']['torch']!r}, 'Torch differs from the saved run. Use the matching Colab runtime; do not mix experiment stacks.'
 subprocess.check_call([sys.executable, '-m', 'pip', 'install', '-q', '-r', str(PROJECT / 'colab/requirements-colab.txt')])
