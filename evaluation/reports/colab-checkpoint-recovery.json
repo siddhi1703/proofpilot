@@ -1,0 +1,10 @@
+{
+  "portable_cases": 50,
+  "logged_cases": 70,
+  "archive_sha256": "dec1a6764b85d6d4ec54bf61f7f3d400028a8770ad7fddd0d8ee174aa7f32897",
+  "source_notebook_sha256": "a5f5db825524569f7e4af6fd6683036511a5373b65cbd4ed880004ac890f29e9",
+  "code_sha256": "b03d98393f63fa83d651d48addfd2fc9ee7bd17534d3f15ca6a54c70736a64fe",
+  "run_id": "39f194169dffea74bb3c",
+  "remaining_cases": 250,
+  "partial_run": true
+}

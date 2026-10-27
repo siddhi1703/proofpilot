@@ -1,0 +1,130 @@
+{
+  "report_sha256": "ecc9ce4fa63a72dabe9ff693b7d12b304995cbca66384755bdc1f5e0a6574025",
+  "run_id": "39f194169dffea74bb3c",
+  "verified_cases": 300,
+  "preserved_recovered_cases": 50,
+  "ranking_differences_from_retrieval_run": 0,
+  "errors": [
+    {
+      "claim_ids": [
+        "C501"
+      ],
+      "error_type": "VerdictError"
+    },
+    {
+      "claim_ids": [
+        "C814"
+      ],
+      "error_type": "VerdictError"
+    },
+    {
+      "claim_ids": [
+        "C1241"
+      ],
+      "error_type": "VerdictError"
+    },
+    {
+      "claim_ids": [
+        "C1280"
+      ],
+      "error_type": "VerdictError"
+    }
+  ],
+  "reranker_fallback_claims": 0,
+  "metrics": {
+    "claims": 300,
+    "retrieval_applicable_claims": 188,
+    "retrieval_not_applicable_claims": 112,
+    "retrieval_recall_at_1": 0.8001,
+    "retrieval_hit_rate_at_1": 0.8245,
+    "retrieval_recall_at_4": 0.9447,
+    "retrieval_hit_rate_at_4": 0.9574,
+    "retrieval_recall_at_8": 0.9854,
+    "retrieval_hit_rate_at_8": 0.9894,
+    "retrieval_mrr_at_8": 0.8881,
+    "verdict_accuracy": 0.5067,
+    "accuracy_wilson_95": [
+      0.4504,
+      0.5628
+    ],
+    "verdict_coverage": 0.9867,
+    "missing_verdicts": 4,
+    "macro_f1_observed_labels": 0.6038,
+    "per_verdict": {
+      "supported": {
+        "support": 124,
+        "predicted": 51,
+        "precision": 0.8824,
+        "recall": 0.3629,
+        "f1": 0.5143
+      },
+      "weakly_supported": {
+        "support": 0,
+        "predicted": 68,
+        "precision": 0.0,
+        "recall": null,
+        "f1": null
+      },
+      "unsupported": {
+        "support": 112,
+        "predicted": 99,
+        "precision": 0.7879,
+        "recall": 0.6964,
+        "f1": 0.7393
+      },
+      "contradicted": {
+        "support": 64,
+        "predicted": 40,
+        "precision": 0.725,
+        "recall": 0.4531,
+        "f1": 0.5577
+      },
+      "human_review_required": {
+        "support": 0,
+        "predicted": 38,
+        "precision": 0.0,
+        "recall": null,
+        "f1": null
+      }
+    },
+    "confusion_matrix": {
+      "supported": {
+        "human_review_required": 15,
+        "unsupported": 8,
+        "weakly_supported": 48,
+        "supported": 45,
+        "contradicted": 6,
+        "missing": 2
+      },
+      "weakly_supported": {},
+      "unsupported": {
+        "unsupported": 78,
+        "weakly_supported": 17,
+        "human_review_required": 9,
+        "contradicted": 5,
+        "missing": 2,
+        "supported": 1
+      },
+      "contradicted": {
+        "unsupported": 13,
+        "contradicted": 29,
+        "human_review_required": 14,
+        "weakly_supported": 3,
+        "supported": 5
+      },
+      "human_review_required": {}
+    },
+    "false_supported": 6
+  },
+  "verified_at": "2026-10-27T19:59:37.731051+00:00",
+  "report_updated_at": "2026-10-27T18:34:18.901663+00:00",
+  "archive_sha256": "f0bf2f895d2e269fb9961b49919168b66499ed312e432bfef151a60271e4bc39",
+  "checks": [
+    "Archive SHA-256, CRC and all manifest file hashes verified before restoration.",
+    "Full 300-case count, ordered case/claim identities and pinned gold labels verified.",
+    "Frozen code, dataset, model revisions and recorded package configuration match the recovered run.",
+    "First 50 decoded claim results exactly match the recovered report.",
+    "Metrics recomputed from every prediction, including four missing outputs.",
+    "All 300 reranked source lists exactly match the separately recorded retrieval run."
+  ]
+}

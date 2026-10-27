@@ -25,6 +25,11 @@ retriever must select eight candidates before the top four reach the verifier.
 The gold abstracts are included by construction: this is controlled candidate-pool
 retrieval, not full-corpus search. Sentence rationales are retained for inspection.
 
+The benchmark receives the upstream claim text and abstract passages directly.
+It measures retrieval and verdict behavior, not claim-extraction coverage, PDF
+parsing accuracy, or privacy-detection quality. Those application paths have
+separate regression tests and a small integration demo.
+
 The two additional policy classes, weakly_supported and human_review_required,
 are absent from SciFact. `datasets/policy-v3.json` supplies ten clearly marked
 hand-authored examples. Do not combine their scores with the expert-data result
@@ -100,10 +105,44 @@ reranker fallbacks.
 | MiniLM cosine | 0.6933 | 0.9225 | 0.8151 |
 | MiniLM cross-encoder | 0.8001 | 0.9447 | 0.8881 |
 
-Neural Recall@8 was 0.9854. These are controlled 16-abstract-pool results. The
-final five-verdict Qwen test report has not been recovered. The last confirmed
-checkpoint was 40/300 before the browser/session interruption. No partial score
-is presented as a final result.
+Neural Recall@8 was 0.9854. These are controlled 16-abstract-pool results.
+
+## Complete fixed-test verdict run
+
+[`reports/colab-test-verdicts-300.json`](reports/colab-test-verdicts-300.json)
+records all 300 fixed test claims using the frozen five-verdict Qwen profile.
+It completed on October 27, 2026 on a free Colab Tesla T4.
+
+| Metric | Result |
+| --- | ---: |
+| Exact-label accuracy, including missing outputs | 152/300 (50.67%) |
+| Approximate 95% Wilson accuracy interval | 45.04%-56.28% |
+| Macro F1 over the three observed gold labels | 0.6038 |
+| Supported precision / recall | 88.24% / 36.29% |
+| False-supported predictions against gold labels | 6 |
+| Weak-support / human-review predictions | 68 / 38 |
+| Missing verdicts / reranker fallbacks | 4 / 0 |
+
+The four failed requests recorded `VerdictError` for C501, C814, C1241 and C1280.
+They remain missing predictions in the 300-claim denominator. The 106 weak-support
+and human-review outputs count as incorrect exact labels against SciFact's three
+classes; they have not been remapped into correct answers. Five of the six
+false-supported predictions have contradicted gold labels and one has an
+unsupported gold label. See [error analysis and interpretation](ERROR_ANALYSIS.md).
+
+The recovery reused only the verified first 50 cases from the executed notebook;
+the old log-only cases 51-70 were not treated as saved results. The original
+partial report and recovery hashes remain in
+`reports/colab-test-verdicts-partial-50.json` and
+`reports/colab-checkpoint-recovery.json`. The remaining 250 cases ran with the
+same inference code, model revisions, package versions and test labels, with
+Drive checkpoints every five cases. No test-time prompt or threshold tuning was
+performed. The first 50 predictions are unchanged, and every final evidence
+ranking matches the separate 300-case retrieval report.
+
+`reports/colab-test-completion-verification.json` records the final report/archive
+hashes and validation checks. The final archive SHA-256 is
+`f0bf2f895d2e269fb9961b49919168b66499ed312e432bfef151a60271e4bc39`.
 
 ## Separate three-class NLI diagnostic
 

@@ -48,6 +48,9 @@ the experiment. It checks paths, JSON and available manifest hashes, and refuses
 to overwrite a different existing result. Older archives remain supported;
 rebuildable vector caches are skipped. New backup archives contain JSON results
 and a checksum manifest, which keeps downloads small.
+If the same Drive output folder already holds newer progress, leave
+`RESTORE_CHECKPOINT` empty and reuse that folder directly. Do not restore an older
+ZIP over newer reports; the conflict check deliberately refuses that rewind.
 Do not select the best of repeated test runs. Failed verdicts stay in the score and
 cached errors are not silently retried. Changed packages are rejected against an
 existing run; use a separately named experiment folder for a changed software stack.
@@ -59,8 +62,9 @@ Model scores must come from recorded GPU runs. The first ten-case development
 pilot and full development run have been run on a free Tesla T4. The complete
 development verdict accuracy was 50%, with low support recall and no observed
 false-supported predictions. The fixed test retrieval comparison and a separate
-three-class NLI test have also completed. The final five-verdict Qwen test report
-has not been recovered; the last confirmed checkpoint was 40/300. See
+three-class NLI test have also completed. The five-verdict Qwen test has now
+completed all 300 claims: 50.67% exact-label accuracy, six false-supported
+predictions against gold labels and four missing outputs. See
 `evaluation/README.md` for the actual scores and limitations.
 
 Model sources and licenses:
@@ -101,3 +105,34 @@ This three-class diagnostic uses saved rankings, overlapping exact-source
 windows, and a frozen development threshold. It is separate from the application's
 five-verdict policy and safety checks. Its higher exact-label development accuracy
 also came with false-supported predictions; do not use it to approve publication.
+
+## Recover an executed notebook
+
+If a Colab session is gone but the downloaded notebook contains a backup
+textarea, recover it locally without executing any notebook code:
+
+```bash
+python3 scripts/build_resume.py \
+  --notebook /path/to/ProofPilot_Free_Colab.ipynb \
+  --output colab/results/my-recovery
+```
+
+The standard-library builder verifies the embedded ZIP's size, SHA-256 and CRC,
+restores it safely, checks the frozen source and dataset hashes, and compares
+completed chunks with their combined report and pinned gold labels. It creates
+a recovery notebook plus matching source/checkpoint ZIPs. The notebook pins
+the original model revisions and software versions, reuses completed inference,
+and saves subsequent progress to Drive by default. An incompatible Torch runtime
+is rejected rather than mixed with the saved experiment.
+
+The October 27 recovery restored 50 portable test cases; the notebook log showed
+70 cases, but the additional twenty had no portable backup. Only the verified
+50 are reused. Their 48% exact-label accuracy is a partial result, not the final
+300-case score. See `evaluation/reports/colab-checkpoint-recovery.json` and
+`evaluation/reports/colab-test-verdicts-partial-50.json`.
+
+The resumed run subsequently completed all 300 cases without changing the frozen
+inference profile. Its full report is `evaluation/reports/colab-test-verdicts-300.json`;
+the earlier 50-case report remains an archive of the recovery point. The final
+Drive backup is **ProofPilot Colab / proofpilot-test-300.zip**. Keep it with its
+printed SHA-256. No paid inference service or laptop model installation was used.

@@ -14,9 +14,8 @@ verification, and live-model evaluation status.
   16-abstract pools; cross-encoder reranking improved Recall@1 from 69.33% to
   80.01% across the 188 claims with annotated evidence.
 
-This describes implemented capabilities. It does not claim that live Qwen
-quality has been validated on all 400 claims. Do not say "400 claims trained";
-this dataset is for evaluation, not model training.
+This describes implemented capabilities and a completed controlled evaluation.
+Do not say "400 claims trained"; this dataset is for evaluation, not model training.
 
 ## Measured results
 
@@ -28,8 +27,10 @@ fact-checking accuracy.
 
 The original five-verdict Qwen Colab profile achieved 50% exact-label development
 accuracy with zero observed false-supported predictions, but low support recall.
-Its final 300-case test report has not been recovered. A separate three-class NLI diagnostic completed the
-test at 65.67% accuracy, with 22 false-supported predictions. Its policy differs
+Its completed 300-case test achieved 50.67% exact-label accuracy (macro F1 0.6038),
+with six false-supported predictions, four missing outputs, and 36.29% supported
+recall. A separate three-class NLI diagnostic completed the test at 65.67% accuracy,
+with 22 false-supported predictions. Its policy differs
 from the application's five verdicts. Keep these limitations in the project
 README; neither result supports an autonomous fact-checking claim.
 Keep the old 12-claim perfect scores out of the headline resume entry.
