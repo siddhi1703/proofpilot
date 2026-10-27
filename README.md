@@ -85,7 +85,8 @@ received weak support and 14 required human review. A separate three-class NLI
 diagnostic achieved **65.67% test accuracy on all 300 claims**, with 22
 false-supported outputs; its label policy differs from the application.
 The final five-verdict Qwen test
-report has not been recovered; the last confirmed checkpoint was 40/300.
+report is still pending. A verified **50/300 checkpoint** has now been recovered
+from the executed notebook and can resume the remaining 250 cases.
 These measured limitations matter alongside retrieval performance.
 
 ```bash

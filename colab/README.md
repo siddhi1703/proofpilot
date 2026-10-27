@@ -101,3 +101,28 @@ This three-class diagnostic uses saved rankings, overlapping exact-source
 windows, and a frozen development threshold. It is separate from the application's
 five-verdict policy and safety checks. Its higher exact-label development accuracy
 also came with false-supported predictions; do not use it to approve publication.
+
+## Recover an executed notebook
+
+If a Colab session is gone but the downloaded notebook contains a backup
+textarea, recover it locally without executing any notebook code:
+
+```bash
+python3 scripts/build_resume.py \
+  --notebook /path/to/ProofPilot_Free_Colab.ipynb \
+  --output colab/results/my-recovery
+```
+
+The standard-library builder verifies the embedded ZIP's size, SHA-256 and CRC,
+restores it safely, checks the frozen source and dataset hashes, and compares
+completed chunks with their combined report and pinned gold labels. It creates
+a recovery notebook plus matching source/checkpoint ZIPs. The notebook pins
+the original model revisions and software versions, reuses completed inference,
+and saves subsequent progress to Drive by default. An incompatible Torch runtime
+is rejected rather than mixed with the saved experiment.
+
+The October 27 recovery restored 50 portable test cases; the notebook log showed
+70 cases, but the additional twenty had no portable backup. Only the verified
+50 are reused. Their 48% exact-label accuracy is a partial result, not the final
+300-case score. See `evaluation/reports/colab-checkpoint-recovery.json` and
+`evaluation/reports/colab-test-verdicts-partial-50.json`.

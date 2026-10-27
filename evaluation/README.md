@@ -101,9 +101,15 @@ reranker fallbacks.
 | MiniLM cross-encoder | 0.8001 | 0.9447 | 0.8881 |
 
 Neural Recall@8 was 0.9854. These are controlled 16-abstract-pool results. The
-final five-verdict Qwen test report has not been recovered. The last confirmed
-checkpoint was 40/300 before the browser/session interruption. No partial score
-is presented as a final result.
+final five-verdict Qwen test report is still pending. The downloaded notebook
+yielded a verified 50-case portable checkpoint; its log reaches 70, but the
+additional twenty cases have no portable backup. The recovered first 50 scored
+48% exact-label accuracy with no missing outputs, infrastructure errors or
+observed false-supported predictions. This is explicitly partial and is not a
+300-case score. The original report is
+`reports/colab-test-verdicts-partial-50.json`; archive/source hashes and recovery
+counts are in `reports/colab-checkpoint-recovery.json`. Inference code, model
+revisions and test labels remain frozen for resumption.
 
 ## Separate three-class NLI diagnostic
 

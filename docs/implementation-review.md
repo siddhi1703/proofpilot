@@ -44,7 +44,7 @@ See `evaluation/reports/scifact-v2-test-bm25.json` for inspectable results and
 
 ## Verification
 
-- Backend: 61 tests passed locally, including API integration, safety behavior,
+- Backend: 64 tests passed locally, including API integration, safety behavior,
   malformed embeddings, fallback visibility, missing-output scoring, dataset
   separation, and the complete comparison runner with mocked provider outputs.
 - Frontend: production build and ESLint passed.
@@ -70,9 +70,14 @@ See `evaluation/reports/scifact-v2-test-bm25.json` for inspectable results and
   with 22 false-supported outputs. It differs from the five-verdict application
   policy and is not an automatic-approval replacement. Its configuration was
   selected on development and frozen before test.
-- The final five-verdict Qwen test report has not been recovered after the
-  browser/session interruption. The last confirmed checkpoint was 40/300.
-  Inference code and model configuration remain frozen; no final score is claimed.
+- The executed notebook restored a verified 50/300 portable checkpoint. The
+  stream log reaches 70, but the additional twenty cases are not archived.
+  The first 50 scored 48% exact-label accuracy, with no missing outputs or
+  infrastructure errors. The full report remains pending; no final score is claimed.
+- A recovery builder verifies embedded archive checksums, report/chunk agreement
+  and the pinned gold labels without executing notebook code. It creates a
+  recovery notebook that pins the original model revisions and software stack,
+  reuses 50 completed cases, and saves subsequent progress to Drive by default.
 - The portable notebook now restores legacy and manifest-backed checkpoint ZIPs,
   rejects unsafe paths and conflicting results before writing, and preserves
   existing retrieval-report bytes referenced by NLI provenance hashes.

@@ -1,0 +1,1435 @@
+{
+  "schema_version": 1,
+  "profile": "free-colab-open-weights",
+  "updated_at": "2026-10-26T22:59:13.366898+00:00",
+  "configuration": {
+    "dataset_sha256": "ea13f5e8f5f420566114845b44fad57018f7acaeaf5bf6ff9b463f023cab59c3",
+    "code_sha256": "b03d98393f63fa83d651d48addfd2fc9ee7bd17534d3f15ca6a54c70736a64fe",
+    "models": {
+      "backend": "colab-open-weights",
+      "revisions": {
+        "sentence-transformers/all-MiniLM-L6-v2": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+        "cross-encoder/ms-marco-MiniLM-L6-v2": "233902d25c440f23af6f7d6e94d2946bac0bee0a",
+        "Qwen/Qwen3-4B-Instruct-2507": "cdbee75f17c01a7cc42f958dc650907174af0554"
+      },
+      "embedding": "sentence-transformers/all-MiniLM-L6-v2",
+      "rerank": "cross-encoder/ms-marco-MiniLM-L6-v2",
+      "verdict": "Qwen/Qwen3-4B-Instruct-2507",
+      "embedding_policy": "240-token windows, 32-token overlap, mean of normalized window vectors then L2 normalization",
+      "rerank_policy": "maximum cross-encoder logit over 320-token source windows with 64-token overlap; no lexical rescue",
+      "quantization": "verdict model NF4 4-bit, float16 compute, double quantization",
+      "generation": "greedy; one claim per verdict request; 2048 output-token cap; 12000 input-token cap; no silent truncation",
+      "gpu": "Tesla T4"
+    },
+    "mode": "rerank",
+    "verdicts": true,
+    "verdict_batch_size": 1,
+    "packages": {
+      "torch": "2.11.0+cu130",
+      "transformers": "4.57.1",
+      "sentence-transformers": "5.1.2",
+      "bitsandbytes": "0.48.1",
+      "accelerate": "1.11.0",
+      "numpy": "2.1.3"
+    }
+  },
+  "dataset_id": "scifact-proofpilot-v2",
+  "split": "test",
+  "dataset_total_cases": 300,
+  "requested_cases": 50,
+  "completed_cases": 50,
+  "partial_run": true,
+  "strategies": {
+    "rerank": {
+      "metrics": {
+        "claims": 50,
+        "retrieval_applicable_claims": 38,
+        "retrieval_not_applicable_claims": 12,
+        "retrieval_recall_at_1": 0.8224,
+        "retrieval_hit_rate_at_1": 0.8421,
+        "retrieval_recall_at_4": 0.9671,
+        "retrieval_hit_rate_at_4": 0.9737,
+        "retrieval_recall_at_8": 0.9868,
+        "retrieval_hit_rate_at_8": 1.0,
+        "retrieval_mrr_at_8": 0.9073,
+        "verdict_accuracy": 0.48,
+        "accuracy_wilson_95": [
+          0.348,
+          0.6149
+        ],
+        "verdict_coverage": 1.0,
+        "missing_verdicts": 0,
+        "macro_f1_observed_labels": 0.5929,
+        "per_verdict": {
+          "supported": {
+            "support": 23,
+            "predicted": 8,
+            "precision": 1.0,
+            "recall": 0.3478,
+            "f1": 0.5161
+          },
+          "weakly_supported": {
+            "support": 0,
+            "predicted": 9,
+            "precision": 0.0,
+            "recall": null,
+            "f1": null
+          },
+          "unsupported": {
+            "support": 12,
+            "predicted": 15,
+            "precision": 0.6667,
+            "recall": 0.8333,
+            "f1": 0.7407
+          },
+          "contradicted": {
+            "support": 15,
+            "predicted": 8,
+            "precision": 0.75,
+            "recall": 0.4,
+            "f1": 0.5217
+          },
+          "human_review_required": {
+            "support": 0,
+            "predicted": 10,
+            "precision": 0.0,
+            "recall": null,
+            "f1": null
+          }
+        },
+        "confusion_matrix": {
+          "supported": {
+            "human_review_required": 4,
+            "unsupported": 2,
+            "weakly_supported": 7,
+            "supported": 8,
+            "contradicted": 2
+          },
+          "weakly_supported": {},
+          "unsupported": {
+            "unsupported": 10,
+            "weakly_supported": 1,
+            "human_review_required": 1
+          },
+          "contradicted": {
+            "unsupported": 3,
+            "contradicted": 6,
+            "human_review_required": 5,
+            "weakly_supported": 1
+          },
+          "human_review_required": {}
+        },
+        "false_supported": 0
+      },
+      "errors": [],
+      "reranker_fallback_claims": 0,
+      "claim_results": [
+        {
+          "case_id": "scifact-1",
+          "claim_id": "C1",
+          "claim": "0-dimensional biomaterials show inductive properties.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D43385013",
+            "D10607877",
+            "D40212412",
+            "D1346695",
+            "D803312",
+            "D12824568",
+            "D13231899",
+            "D11141995"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-3",
+          "claim_id": "C3",
+          "claim": "1,000 genomes project enables mapping of genetic sequence variation consisting of rare variants with larger penetrance effects than common variants.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D14717500"
+          ],
+          "ranked_source_ids": [
+            "D14717500",
+            "D4632921",
+            "D19058822",
+            "D23389795",
+            "D13916484",
+            "D32181055",
+            "D13914198",
+            "D13519661"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "human_review_required",
+          "evidence_quote": "",
+          "cited_source_ids": [
+            "D14717500"
+          ]
+        },
+        {
+          "case_id": "scifact-5",
+          "claim_id": "C5",
+          "claim": "1/2000 in UK have abnormal PrP positivity.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D13734012"
+          ],
+          "ranked_source_ids": [
+            "D13734012",
+            "D18617259",
+            "D17333231",
+            "D42240424",
+            "D1292369",
+            "D103007",
+            "D23531592",
+            "D19824183"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-13",
+          "claim_id": "C13",
+          "claim": "5% of perinatal mortality is due to low birth weight.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D8842332",
+            "D17450673",
+            "D7662395",
+            "D11360768",
+            "D1263446",
+            "D23557241",
+            "D5487448",
+            "D2425364"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-36",
+          "claim_id": "C36",
+          "claim": "A deficiency of vitamin B12 increases blood levels of homocysteine.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D33409100",
+            "D37424881",
+            "D16252863",
+            "D21636085",
+            "D11705328",
+            "D24049225",
+            "D21553394",
+            "D22023404"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "weakly_supported",
+          "evidence_quote": "Participants received a daily capsule containing 40 mg of folic acid, 100 mg of pyridoxine hydrochloride (vitamin B6), and 2 mg of cyanocobalamin (vitamin B12) or a placebo.",
+          "cited_source_ids": [
+            "D33409100"
+          ]
+        },
+        {
+          "case_id": "scifact-42",
+          "claim_id": "C42",
+          "claim": "A high microerythrocyte count raises vulnerability to severe anemia in homozygous alpha (+)- thalassemia trait subjects.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "contradicted",
+          "expected_source_ids": [
+            "D18174210"
+          ],
+          "ranked_source_ids": [
+            "D18174210",
+            "D40913091",
+            "D6315132",
+            "D42373943",
+            "D27162821",
+            "D10128893",
+            "D39443128",
+            "D25420421"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-48",
+          "claim_id": "C48",
+          "claim": "A total of 1,000 people in the UK are asymptomatic carriers of vCJD infection.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "contradicted",
+          "expected_source_ids": [
+            "D13734012"
+          ],
+          "ranked_source_ids": [
+            "D13734012",
+            "D18617259",
+            "D18344910",
+            "D22309946",
+            "D3716075",
+            "D13959707",
+            "D5398179",
+            "D18340282"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-49",
+          "claim_id": "C49",
+          "claim": "ADAR1 binds to Dicer to cleave pre-miRNA.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D5953485"
+          ],
+          "ranked_source_ids": [
+            "D5953485",
+            "D23913146",
+            "D13964633",
+            "D86602746",
+            "D15590539",
+            "D2266471",
+            "D1333643",
+            "D22362025"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "weakly_supported",
+          "evidence_quote": "ADAR1 forms a complex with Dicer through direct protein-protein interaction. Most importantly, ADAR1 increases the maximum rate (Vmax) of pre-microRNA (miRNA) cleavage by Dicer and facilitates loading of miRNA onto RNA-induced silencing complexes, identifying a new role of ADAR1 in miRNA processing and RNAi mechanisms.",
+          "cited_source_ids": [
+            "D5953485"
+          ]
+        },
+        {
+          "case_id": "scifact-50",
+          "claim_id": "C50",
+          "claim": "AIRE is expressed in some skin tumors.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D12580014"
+          ],
+          "ranked_source_ids": [
+            "D12580014",
+            "D25738896",
+            "D18488986",
+            "D13989491",
+            "D29785642",
+            "D4561402",
+            "D19736671",
+            "D17844478"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "supported",
+          "evidence_quote": "We report that autoimmune regulator (Aire), a transcriptional regulator, is inducibly expressed in human and mouse tumor keratinocytes in a K17-dependent manner and is required for timely onset of Gli2-induced skin tumorigenesis in mice.",
+          "cited_source_ids": [
+            "D12580014"
+          ]
+        },
+        {
+          "case_id": "scifact-51",
+          "claim_id": "C51",
+          "claim": "ALDH1 expression is associated with better breast cancer outcomes.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "contradicted",
+          "expected_source_ids": [
+            "D45638119"
+          ],
+          "ranked_source_ids": [
+            "D45638119",
+            "D21439640",
+            "D16734530",
+            "D4429932",
+            "D3285322",
+            "D9394119",
+            "D2140497",
+            "D12438901"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "contradicted",
+          "evidence_quote": "In a series of 577 breast carcinomas, expression of ALDH1 detected by immunostaining correlated with poor prognosis.",
+          "cited_source_ids": [
+            "D45638119"
+          ]
+        },
+        {
+          "case_id": "scifact-53",
+          "claim_id": "C53",
+          "claim": "ALDH1 expression is associated with poorer prognosis in breast cancer.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D45638119"
+          ],
+          "ranked_source_ids": [
+            "D45638119",
+            "D21439640",
+            "D24349992",
+            "D29366489",
+            "D313403",
+            "D2140497",
+            "D4429932",
+            "D16734530"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "supported",
+          "evidence_quote": "In a series of 577 breast carcinomas, expression of ALDH1 detected by immunostaining correlated with poor prognosis.",
+          "cited_source_ids": [
+            "D45638119"
+          ]
+        },
+        {
+          "case_id": "scifact-54",
+          "claim_id": "C54",
+          "claim": "AMP-activated protein kinase (AMPK) activation increases inflammation-related fibrosis in the lungs.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "contradicted",
+          "expected_source_ids": [
+            "D49556906"
+          ],
+          "ranked_source_ids": [
+            "D3973445",
+            "D49556906",
+            "D24721866",
+            "D19313533",
+            "D3419709",
+            "D22621251",
+            "D38533515",
+            "D5172048"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "contradicted",
+          "evidence_quote": "In a bleomycin model of lung fibrosis in mice, metformin therapeutically accelerates the resolution of well-established fibrosis in an AMPK-dependent manner. These studies implicate deficient AMPK activation in non-resolving, pathologic fibrotic processes, and support a role for metformin (or other AMPK activators) to reverse established fibrosis by facilitating deactivation and apoptosis of myofibroblasts.",
+          "cited_source_ids": [
+            "D49556906"
+          ]
+        },
+        {
+          "case_id": "scifact-56",
+          "claim_id": "C56",
+          "claim": "APOE4 expression in iPSC-derived neurons increases AlphaBeta production and tau phosphorylation causing GABA neuron degeneration.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D4709641"
+          ],
+          "ranked_source_ids": [
+            "D4709641",
+            "D22185730",
+            "D4459491",
+            "D35520219",
+            "D3140772",
+            "D26336593",
+            "D24632480",
+            "D10641715"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "weakly_supported",
+          "evidence_quote": "Gain of toxic Apolipoprotein E4 effects in Human iPSC-Derived Neurons Is Ameliorated by a Small-Molecule Structure Corrector. Efforts to develop drugs for Alzheimer's disease (AD) have shown promise in animal studies, only to fail in human trials, suggesting a pressing need to study AD in human model systems. Using human neurons derived from induced pluripotent stem cells that expressed apolipoprotein E4 (ApoE4), a variant of the APOE gene product and the major genetic risk factor for AD, we demonstrated that ApoE4-expressing neurons had higher levels of tau phosphorylation, unrelated to their increased production of amyloid-\u03b2 (A\u03b2) peptides, and that they displayed GABAergic neuron degeneration. ApoE4 increased A\u03b2 production in human, but not in mouse, neurons. Converting ApoE4 to ApoE3 by gene editing rescued these phenotypes, indicating the specific effects of ApoE4. Neurons that lacked APOE behaved similarly to those expressing ApoE3, and the introduction of ApoE4 expression recapitulated the pathological phenotypes, suggesting a gain of toxic effects from ApoE4. Treatment of ApoE4-expressing neurons with a small-molecule structure corrector ameliorated the detrimental effects, thus showing that correcting the pathogenic conformation of ApoE4 is a viable therapeutic approach for ApoE4-related AD.",
+          "cited_source_ids": [
+            "D4709641"
+          ]
+        },
+        {
+          "case_id": "scifact-57",
+          "claim_id": "C57",
+          "claim": "APOE4 expression in iPSC-derived neurons increases AlphaBeta production and tau phosphorylation, delaying GABA neuron degeneration.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "contradicted",
+          "expected_source_ids": [
+            "D4709641"
+          ],
+          "ranked_source_ids": [
+            "D4709641",
+            "D22185730",
+            "D4459491",
+            "D3085264",
+            "D35520219",
+            "D3140772",
+            "D26336593",
+            "D24632480"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-70",
+          "claim_id": "C70",
+          "claim": "Activation of PPM1D suppresses p53 function.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D4414547",
+            "D5956380"
+          ],
+          "ranked_source_ids": [
+            "D11903247",
+            "D4389394",
+            "D25901598",
+            "D23985464",
+            "D9169645",
+            "D35684881",
+            "D5956380",
+            "D12240507"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-72",
+          "claim_id": "C72",
+          "claim": "Activator-inhibitor pairs are provided dorsally by Admpchordin.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D6076903",
+            "D40500438",
+            "D18447487",
+            "D1550937",
+            "D10937190",
+            "D23513718",
+            "D23974474",
+            "D29185044"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-75",
+          "claim_id": "C75",
+          "claim": "Active H. pylori urease has a polymeric structure that compromises two subunits, UreA and UreB.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D4387784",
+            "D13965483",
+            "D25657127",
+            "D29214508",
+            "D36233757",
+            "D26488879",
+            "D2837758",
+            "D29367554"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-94",
+          "claim_id": "C94",
+          "claim": "Albendazole is used to treat lymphatic filariasis.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D20610557",
+            "D13070316",
+            "D1215116",
+            "D7370282",
+            "D25068298",
+            "D27240699",
+            "D22482820",
+            "D29634262"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-99",
+          "claim_id": "C99",
+          "claim": "Alizarin forms hydrogen bonds with residues involved in PGAM1 substrate binding.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D18810195",
+            "D30208015",
+            "D21754541",
+            "D10247314",
+            "D22191759",
+            "D39389082",
+            "D6788835",
+            "D25942757"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-100",
+          "claim_id": "C100",
+          "claim": "All hematopoietic stem cells segregate their chromosomes randomly.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D4381486"
+          ],
+          "ranked_source_ids": [
+            "D4381486",
+            "D2701077",
+            "D13116880",
+            "D25516011",
+            "D34982259",
+            "D22186938",
+            "D3391547",
+            "D7583161"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "supported",
+          "evidence_quote": "Sequential administration of 5-chloro-2-deoxyuridine and 5-iodo-2-deoxyuridine indicated that all HSCs segregate their chromosomes randomly. Division of individual HSCs in culture revealed no asymmetric segregation of the label. Thus, HSCs cannot be identified on the basis of BrdU-label retention and do not retain older DNA strands during division, indicating that these are not general properties of stem cells.",
+          "cited_source_ids": [
+            "D4381486"
+          ]
+        },
+        {
+          "case_id": "scifact-113",
+          "claim_id": "C113",
+          "claim": "Angiotensin converting enzyme inhibitors are associated with increased risk for functional renal insufficiency.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D6157837"
+          ],
+          "ranked_source_ids": [
+            "D6157837",
+            "D1759213",
+            "D25816994",
+            "D43417006",
+            "D26199970",
+            "D31890716",
+            "D356218",
+            "D140098548"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "human_review_required",
+          "evidence_quote": "",
+          "cited_source_ids": [
+            "D6157837"
+          ]
+        },
+        {
+          "case_id": "scifact-115",
+          "claim_id": "C115",
+          "claim": "Anthrax spores can be disposed of easily after they are dispersed.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "contradicted",
+          "expected_source_ids": [
+            "D33872649"
+          ],
+          "ranked_source_ids": [
+            "D33872649",
+            "D2140513",
+            "D5633957",
+            "D13959707",
+            "D9599194",
+            "D13915464",
+            "D15462523",
+            "D109795294"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "contradicted",
+          "evidence_quote": "Viable B anthracis spores reaerosolized under semiquiescent conditions, with a marked increase in reaerosolization during simulated active office conditions. Increases were observed for B anthracis collected on open sheep blood agar plates (P<.001) and personal air monitors (P =.01) during active office conditions. More than 80% of the B anthracis particles collected on stationary monitors were within an alveolar respirable size range of 0.95 to 3.5 micro m.",
+          "cited_source_ids": [
+            "D33872649"
+          ]
+        },
+        {
+          "case_id": "scifact-118",
+          "claim_id": "C118",
+          "claim": "Antibiotic induced alterations in the gut microbiome reduce resistance against Clostridium difficile",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D6372244"
+          ],
+          "ranked_source_ids": [
+            "D6372244",
+            "D4465735",
+            "D32454714",
+            "D33918970",
+            "D4695107",
+            "D52805891",
+            "D2604063",
+            "D12658073"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "weakly_supported",
+          "evidence_quote": "Antibiotics can have significant and long-lasting effects on the gastrointestinal tract microbiota, reducing colonization resistance against pathogens including Clostridium difficile.",
+          "cited_source_ids": [
+            "D6372244"
+          ]
+        },
+        {
+          "case_id": "scifact-124",
+          "claim_id": "C124",
+          "claim": "Antiretroviral therapy reduces rates of tuberculosis across a broad range of CD4 strata.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D4883040"
+          ],
+          "ranked_source_ids": [
+            "D4883040",
+            "D21479231",
+            "D13899137",
+            "D31363207",
+            "D21878751",
+            "D17077004",
+            "D16787954",
+            "D14319754"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "supported",
+          "evidence_quote": "Antiretroviral therapy is strongly associated with a reduction in the incidence of tuberculosis across all CD4 count strata. Earlier initiation of antiretroviral therapy may be a key component of global and national strategies to control the HIV-associated tuberculosis syndemic.",
+          "cited_source_ids": [
+            "D4883040"
+          ]
+        },
+        {
+          "case_id": "scifact-127",
+          "claim_id": "C127",
+          "claim": "Arginine 90 in p150n is important for interaction with EB1.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D35231675",
+            "D21598000",
+            "D18126445",
+            "D38623601",
+            "D293661",
+            "D21943141",
+            "D7549811",
+            "D2842550"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-128",
+          "claim_id": "C128",
+          "claim": "Arterioles have a larger lumen diameter than venules.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D23513718",
+            "D8290953",
+            "D79447",
+            "D1122279",
+            "D25175997",
+            "D243694",
+            "D13445579",
+            "D19685306"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-129",
+          "claim_id": "C129",
+          "claim": "Articles published in open access format are less likely to be cited than traditional journals.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "contradicted",
+          "expected_source_ids": [
+            "D27768226"
+          ],
+          "ranked_source_ids": [
+            "D27768226",
+            "D10577574",
+            "D4857085",
+            "D4688277",
+            "D22711954",
+            "D28017005",
+            "D16390264",
+            "D2107238"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "human_review_required",
+          "evidence_quote": "",
+          "cited_source_ids": [
+            "D27768226"
+          ]
+        },
+        {
+          "case_id": "scifact-130",
+          "claim_id": "C130",
+          "claim": "Articles published in open access format are more likely to be cited than traditional journals.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D27768226"
+          ],
+          "ranked_source_ids": [
+            "D27768226",
+            "D10577574",
+            "D4857085",
+            "D4688277",
+            "D22711954",
+            "D28017005",
+            "D5372432",
+            "D15856466"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "supported",
+          "evidence_quote": "in the 4 to 16 months following publication, OA articles gained a significant citation advantage over non-OA articles during the same period. They are twice as likely to be cited 4 to 10 months after publication and almost three times as likely between 10 and 16 months.",
+          "cited_source_ids": [
+            "D27768226"
+          ]
+        },
+        {
+          "case_id": "scifact-132",
+          "claim_id": "C132",
+          "claim": "Aspirin inhibits the production of PGE2.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D9159125",
+            "D27615329",
+            "D58006489",
+            "D21181273",
+            "D6945691",
+            "D6407356",
+            "D15648443",
+            "D39903312"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-133",
+          "claim_id": "C133",
+          "claim": "Assembly of invadopodia is triggered by focal generation of phosphatidylinositol-3,4-biphosphate and the activation of the nonreceptor tyrosine kinase Src.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D16280642"
+          ],
+          "ranked_source_ids": [
+            "D12640810",
+            "D16280642",
+            "D19752008",
+            "D86694016",
+            "D17934082",
+            "D12785130",
+            "D29429111",
+            "D37964706"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "weakly_supported",
+          "evidence_quote": "Live-cell imaging analysis revealed that Src-expression stimulated podosome formation at focal adhesions of NIH3T3 cells after PtdIns(3,4)P2 accumulation.",
+          "cited_source_ids": [
+            "D16280642"
+          ]
+        },
+        {
+          "case_id": "scifact-137",
+          "claim_id": "C137",
+          "claim": "Asymptomatic visual impairment screening in elderly populations does not lead to improved vision.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D26016929"
+          ],
+          "ranked_source_ids": [
+            "D26016929",
+            "D10893238",
+            "D21274919",
+            "D313394",
+            "D10536636",
+            "D21914176",
+            "D26067999",
+            "D6776834"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "contradicted",
+          "evidence_quote": "The inclusion of a visual screening component in the assessment did not result in improvements in self reported visual problems (pooled odds ratio 1.04:95% confidence interval 0.89 to 1.22). A small reduction (11%) in the number of older people with self reported visual problems cannot be excluded.",
+          "cited_source_ids": [
+            "D26016929"
+          ]
+        },
+        {
+          "case_id": "scifact-141",
+          "claim_id": "C141",
+          "claim": "Auditory entrainment is strengthened when people see congruent visual and auditory information.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D14437255"
+          ],
+          "ranked_source_ids": [
+            "D14437255",
+            "D6955746",
+            "D313394",
+            "D6431384",
+            "D3099497",
+            "D17081238",
+            "D26016929",
+            "D21274919"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "weakly_supported",
+          "evidence_quote": "We demonstrate that the cortical representation of the speech envelope is enhanced by the presentation of congruent audiovisual speech in noise-free conditions. Furthermore, we show that this is likely attributable to the contribution of neural generators that are not particularly active during unimodal stimulation and that it is most prominent at the temporal scale corresponding to syllabic rate (2-6 Hz). Finally, our data suggest that neural entrainment to the speech envelope is inhibited when the auditory and visual streams are incongruent both temporally and contextually.",
+          "cited_source_ids": [
+            "D14437255"
+          ]
+        },
+        {
+          "case_id": "scifact-142",
+          "claim_id": "C142",
+          "claim": "Autologous transplantation of mesenchymal stem cells causes a higher rate of opportunistic infections than induction therapy with anti-interleukin-2 receptor antibodies.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "contradicted",
+          "expected_source_ids": [
+            "D10582939"
+          ],
+          "ranked_source_ids": [
+            "D10582939",
+            "D40164383",
+            "D25985964",
+            "D19511011",
+            "D15425958",
+            "D19510470",
+            "D28517384",
+            "D46353045"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "contradicted",
+          "evidence_quote": "combined analysis of MSC-treated groups revealed significantly decreased risk of opportunistic infections than the control group (hazard ratio, 0.42; 95% CI, 0.20-0.85, P=.02)",
+          "cited_source_ids": [
+            "D10582939"
+          ]
+        },
+        {
+          "case_id": "scifact-143",
+          "claim_id": "C143",
+          "claim": "Autologous transplantation of mesenchymal stem cells causes fewer opportunistic infections than induction therapy with anti-interleukin-2 receptor antibodies.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D10582939"
+          ],
+          "ranked_source_ids": [
+            "D10582939",
+            "D40164383",
+            "D25985964",
+            "D19511011",
+            "D15425958",
+            "D19510470",
+            "D15728433",
+            "D28517384"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "human_review_required",
+          "evidence_quote": "",
+          "cited_source_ids": [
+            "D10582939"
+          ]
+        },
+        {
+          "case_id": "scifact-146",
+          "claim_id": "C146",
+          "claim": "Autologous transplantation of mesenchymal stem cells has lower rates of rejection than induction therapy with anti-interleukin-2 receptor antibodies.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D10582939"
+          ],
+          "ranked_source_ids": [
+            "D10582939",
+            "D40164383",
+            "D24101431",
+            "D4416964",
+            "D25985964",
+            "D19510470",
+            "D27243019",
+            "D13398997"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "weakly_supported",
+          "evidence_quote": "Among patients undergoing renal transplant, the use of autologous MSCs compared with anti-IL-2 receptor antibody induction therapy resulted in lower incidence of acute rejection, decreased risk of opportunistic infection, and better estimated renal function at 1 year.",
+          "cited_source_ids": [
+            "D10582939"
+          ]
+        },
+        {
+          "case_id": "scifact-148",
+          "claim_id": "C148",
+          "claim": "Autophagy declines in aged organisms.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D1084345"
+          ],
+          "ranked_source_ids": [
+            "D1084345",
+            "D10012166",
+            "D15728433",
+            "D56528795",
+            "D52887689",
+            "D26952804",
+            "D2543135",
+            "D10463997"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "human_review_required",
+          "evidence_quote": "",
+          "cited_source_ids": [
+            "D1084345"
+          ]
+        },
+        {
+          "case_id": "scifact-163",
+          "claim_id": "C163",
+          "claim": "Bariatric surgery has a positive impact on mental health.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D18872233"
+          ],
+          "ranked_source_ids": [
+            "D43220289",
+            "D18872233",
+            "D40949706",
+            "D26199970",
+            "D20130904",
+            "D58564850",
+            "D24318630",
+            "D31612088"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "supported",
+          "evidence_quote": "Corresponding to the considerable weight loss after bariatric surgery, important aspects of mental health improved significantly during the 4-year follow-up period.",
+          "cited_source_ids": [
+            "D43220289"
+          ]
+        },
+        {
+          "case_id": "scifact-171",
+          "claim_id": "C171",
+          "claim": "Basophils counteract disease development in patients with systemic lupus erythematosus (SLE).",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "contradicted",
+          "expected_source_ids": [
+            "D12670680"
+          ],
+          "ranked_source_ids": [
+            "D12670680",
+            "D28015516",
+            "D28149602",
+            "D14938990",
+            "D5448119",
+            "D1049501",
+            "D1834762",
+            "D13106686"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "human_review_required",
+          "evidence_quote": "",
+          "cited_source_ids": [
+            "D12670680"
+          ]
+        },
+        {
+          "case_id": "scifact-179",
+          "claim_id": "C179",
+          "claim": "Birth-weight is positively associated with breast cancer.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D16322674",
+            "D17450673",
+            "D23557241",
+            "D27123743"
+          ],
+          "ranked_source_ids": [
+            "D16322674",
+            "D27123743",
+            "D37480103",
+            "D17450673",
+            "D23557241",
+            "D13831842",
+            "D5487448",
+            "D13765757"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "supported",
+          "evidence_quote": "Birth weight was positively associated with breast cancer risk in studies based on birth records (pooled relative risk [RR] per one standard deviation [SD] [= 0.5 kg] increment in birth weight: 1.06; 95% confidence interval [CI] 1.02-1.09) and parental recall when the participants were children (1.02; 95% CI 0.99-1.05), but not in those based on adult self-reports, or maternal recall during the woman's adulthood (0.98; 95% CI 0.95-1.01) (p for heterogeneity between data sources = 0.003). Relative to women who weighed 3.000-3.499 kg, the risk was 0.96 (CI 0.80-1.16) in those who weighed < 2.500 kg, and 1.12 (95% CI 1.00-1.25) in those who weighed > or = 4.000 kg (p for linear trend = 0.001) in birth record data.",
+          "cited_source_ids": [
+            "D16322674"
+          ]
+        },
+        {
+          "case_id": "scifact-180",
+          "claim_id": "C180",
+          "claim": "Blocking the interaction between TDP-43 and respiratory complex I proteins ND3 and ND6 leads to increased TDP-43-induced neuronal loss.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "contradicted",
+          "expected_source_ids": [
+            "D16966326"
+          ],
+          "ranked_source_ids": [
+            "D16966326",
+            "D13380011",
+            "D14893425",
+            "D13717103",
+            "D17231273",
+            "D6492658",
+            "D7093809",
+            "D40631095"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "weakly_supported",
+          "evidence_quote": "The suppression of TDP-43 mitochondrial localization abolishes WT and mutant TDP-43-induced mitochondrial dysfunction and neuronal loss, and improves phenotypes of transgenic mutant TDP-43 mice.",
+          "cited_source_ids": [
+            "D16966326"
+          ]
+        },
+        {
+          "case_id": "scifact-183",
+          "claim_id": "C183",
+          "claim": "Bone marrow cells contribute to adult macrophage compartments.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "contradicted",
+          "expected_source_ids": [
+            "D12827098"
+          ],
+          "ranked_source_ids": [
+            "D12827098",
+            "D10078024",
+            "D2853291",
+            "D24707550",
+            "D3495456",
+            "D44562221",
+            "D26501027",
+            "D9412420"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "human_review_required",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-185",
+          "claim_id": "C185",
+          "claim": "Breast cancer development is determined exclusively by genetic factors.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "contradicted",
+          "expected_source_ids": [
+            "D18340282"
+          ],
+          "ranked_source_ids": [
+            "D21874312",
+            "D23557241",
+            "D18340282",
+            "D3285322",
+            "D27123743",
+            "D2015126",
+            "D5864770",
+            "D16734530"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "contradicted",
+          "evidence_quote": "The intrauterine environment contributes to the predisposition of women to breast cancer in adulthood. The in-utero mechanisms responsible for such predisposition need to be elucidated.",
+          "cited_source_ids": [
+            "D23557241"
+          ]
+        },
+        {
+          "case_id": "scifact-198",
+          "claim_id": "C198",
+          "claim": "CCL19 is absent within dLNs.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D40590358",
+            "D13778710",
+            "D2177022",
+            "D7177329",
+            "D20148808",
+            "D22908536",
+            "D30580263",
+            "D13949015"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-208",
+          "claim_id": "C208",
+          "claim": "CHEK2 is not associated with breast cancer.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D13519661"
+          ],
+          "ranked_source_ids": [
+            "D13519661",
+            "D21439640",
+            "D2140497",
+            "D22975806",
+            "D15721252",
+            "D313403",
+            "D4886637",
+            "D5864770"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "contradicted",
+          "evidence_quote": "Background Checkpoint kinase 2 (CHEK2) averts cancer development by promoting cell cycle arrest and activating DNA repair in genetically damaged cells. Previous investigation has established a role for the CHEK2 gene in breast cancer aetiology, but studies have largely been limited to the rare 1100delC mutation.",
+          "cited_source_ids": [
+            "D13519661"
+          ]
+        },
+        {
+          "case_id": "scifact-212",
+          "claim_id": "C212",
+          "claim": "CR is associated with higher methylation age.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "contradicted",
+          "expected_source_ids": [
+            "D22038539"
+          ],
+          "ranked_source_ids": [
+            "D11935250",
+            "D22038539",
+            "D7988832",
+            "D7808055",
+            "D9291668",
+            "D4434951",
+            "D4679264",
+            "D23665162"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "human_review_required",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-213",
+          "claim_id": "C213",
+          "claim": "CRP is not predictive of postoperative mortality following Coronary Artery Bypass Graft (CABG) surgery.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D27054878",
+            "D20887554",
+            "D750781",
+            "D9846940",
+            "D5884524",
+            "D13625993",
+            "D15925931",
+            "D23983289"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "human_review_required",
+          "evidence_quote": "",
+          "cited_source_ids": [
+            "D27054878"
+          ]
+        },
+        {
+          "case_id": "scifact-216",
+          "claim_id": "C216",
+          "claim": "CX3CR1 on the Th2 cells impairs T cell survival",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "contradicted",
+          "expected_source_ids": [
+            "D21366394"
+          ],
+          "ranked_source_ids": [
+            "D21366394",
+            "D13923140",
+            "D21363424",
+            "D40365566",
+            "D6961811",
+            "D36242796",
+            "D8639034",
+            "D20311968"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "contradicted",
+          "evidence_quote": "CX3CR1 signaling promoted T(H)2 survival in the inflamed lungs",
+          "cited_source_ids": [
+            "D21366394"
+          ]
+        },
+        {
+          "case_id": "scifact-217",
+          "claim_id": "C217",
+          "claim": "CX3CR1 on the Th2 cells promotes T cell survival",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D21366394"
+          ],
+          "ranked_source_ids": [
+            "D21366394",
+            "D21363424",
+            "D14311986",
+            "D40365566",
+            "D30774694",
+            "D36242796",
+            "D13798951",
+            "D8639034"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "supported",
+          "evidence_quote": "We found that CX3CR1 signaling promoted T(H)2 survival in the inflamed lungs, and injection of B cell leukemia/lymphoma-2 protein (BCl-2)-transduced CX3CR1-deficient T(H)2 cells into CX3CR1-deficient mice restored asthma.",
+          "cited_source_ids": [
+            "D21366394"
+          ]
+        },
+        {
+          "case_id": "scifact-218",
+          "claim_id": "C218",
+          "claim": "CX3CR1 on the Th2 cells promotes airway inflammation.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D21366394"
+          ],
+          "ranked_source_ids": [
+            "D21366394",
+            "D40365566",
+            "D1800734",
+            "D20311968",
+            "D20148808",
+            "D56486733",
+            "D2042250",
+            "D888896"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "weakly_supported",
+          "evidence_quote": "CX3CR1 signaling promoted T(H)2 survival in the inflamed lungs, and injection of B cell leukemia/lymphoma-2 protein (BCl-2)-transduced CX3CR1-deficient T(H)2 cells into CX3CR1-deficient mice restored asthma.",
+          "cited_source_ids": [
+            "D21366394"
+          ]
+        },
+        {
+          "case_id": "scifact-219",
+          "claim_id": "C219",
+          "claim": "CX3CR1 on the Th2 cells suppresses airway inflammation.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "contradicted",
+          "expected_source_ids": [
+            "D21366394"
+          ],
+          "ranked_source_ids": [
+            "D21366394",
+            "D20311968",
+            "D40365566",
+            "D1800734",
+            "D20148808",
+            "D56486733",
+            "D2042250",
+            "D888896"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "human_review_required",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        }
+      ]
+    }
+  },
+  "limitations": [
+    "Public benchmark may be present in model pretraining.",
+    "Test is upstream development, not the unreleased SciFact test set.",
+    "Unsupported means no upstream annotated evidence, not proof of falsehood.",
+    "Gold evidence is included in the candidate pool by construction.",
+    "Abstracts are passages; page number 1 is a container marker, not a journal page.",
+    "Only three verdict classes are expert annotated; other policy classes use separate tests.",
+    "Open-weight models and windowing differ from the hosted Qwen pipeline.",
+    "Cross-encoder scores rank relevance, not entailment or calibrated truth probabilities.",
+    "Inference errors are preserved as missing predictions; cached failed chunks are not silently retried."
+  ]
+}

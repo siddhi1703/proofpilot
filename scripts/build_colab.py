@@ -22,7 +22,8 @@ def code(text):
 def build():
     DEST.mkdir(exist_ok=True)
     fixed = ["backend/benchmark.py", "backend/colab_runner.py", "backend/main.py", "backend/pytest.ini",
-             "colab/requirements-colab.txt", "colab/nli_baseline.py", "colab/checkpoints.py", "colab/README.md", "evaluation/README.md", "README.md", "LICENSE"]
+             "colab/requirements-colab.txt", "colab/nli_baseline.py", "colab/checkpoints.py", "colab/README.md", "evaluation/README.md", "README.md", "LICENSE",
+             "scripts/build_colab.py", "scripts/build_resume.py"]
     paths = [ROOT / p for p in fixed]
     paths += list((ROOT / "backend/app").rglob("*.py"))
     paths += list((ROOT / "backend/tests").rglob("*.py"))
