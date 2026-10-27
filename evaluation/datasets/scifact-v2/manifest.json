@@ -1,0 +1,29 @@
+{
+  "dataset_id": "scifact-proofpilot-v2",
+  "source": "https://scifact.s3-us-west-2.amazonaws.com/release/latest/data.tar.gz",
+  "archive_sha256": "11c621288d41ac144d29b13b0f8503b3820b7d6e8b1f6ff24dff335c196d76be",
+  "splits": {
+    "development": {
+      "claims": 100,
+      "candidate_pool_size": 16,
+      "labels": {
+        "supported": 47,
+        "unsupported": 36,
+        "contradicted": 17
+      },
+      "sha256": "4edf0bc1d2badb1629b9386ce9f79db4c50c1c3c268d286fa4a196a70476e585"
+    },
+    "test": {
+      "claims": 300,
+      "candidate_pool_size": 16,
+      "labels": {
+        "unsupported": 112,
+        "supported": 124,
+        "contradicted": 64
+      },
+      "sha256": "ea13f5e8f5f420566114845b44fad57018f7acaeaf5bf6ff9b463f023cab59c3"
+    }
+  },
+  "claim_overlap": 0,
+  "source_document_overlap": 0
+}

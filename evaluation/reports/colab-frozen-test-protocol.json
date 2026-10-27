@@ -1,0 +1,39 @@
+{
+  "frozen_at": "2026-10-26T22:38:08.685636+00:00",
+  "configuration": {
+    "code_sha256": "b03d98393f63fa83d651d48addfd2fc9ee7bd17534d3f15ca6a54c70736a64fe",
+    "models": {
+      "backend": "colab-open-weights",
+      "revisions": {
+        "sentence-transformers/all-MiniLM-L6-v2": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+        "cross-encoder/ms-marco-MiniLM-L6-v2": "233902d25c440f23af6f7d6e94d2946bac0bee0a",
+        "Qwen/Qwen3-4B-Instruct-2507": "cdbee75f17c01a7cc42f958dc650907174af0554"
+      },
+      "embedding": "sentence-transformers/all-MiniLM-L6-v2",
+      "rerank": "cross-encoder/ms-marco-MiniLM-L6-v2",
+      "verdict": "Qwen/Qwen3-4B-Instruct-2507",
+      "embedding_policy": "240-token windows, 32-token overlap, mean of normalized window vectors then L2 normalization",
+      "rerank_policy": "maximum cross-encoder logit over 320-token source windows with 64-token overlap; no lexical rescue",
+      "quantization": "verdict model NF4 4-bit, float16 compute, double quantization",
+      "generation": "greedy; one claim per verdict request; 2048 output-token cap; 12000 input-token cap; no silent truncation",
+      "gpu": "Tesla T4"
+    },
+    "test_dataset_sha256": "ea13f5e8f5f420566114845b44fad57018f7acaeaf5bf6ff9b463f023cab59c3",
+    "development_completed": 100,
+    "retrieval_strategies": [
+      "cosine",
+      "rerank"
+    ],
+    "verdict_strategy": "rerank",
+    "verdict_batch_size": 1,
+    "nli_diagnostic": {
+      "model": "MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli",
+      "model_revision": "6f5cf0a2b59cabb106aca4c287eed12e357e90eb",
+      "code_sha256": "7c2f677d102b3a459e5539195f0c63c81ef1c2fcae14929e7c90a429391346ed",
+      "selected_configuration": {
+        "top_k": 1,
+        "threshold": 0.5
+      }
+    }
+  }
+}

@@ -1,0 +1,3 @@
+evaluation/datasets/**/*.json linguist-generated=true
+evaluation/reports/*.json linguist-generated=true
+colab/*.ipynb linguist-generated=true

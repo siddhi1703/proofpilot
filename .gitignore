@@ -8,3 +8,9 @@ __pycache__/
 *.save
 .DS_Store
 uploads/
+evaluation/runs/
+evaluation/external/
+evaluation/cache/
+colab/*.zip
+colab/bundle-manifest.json
+colab/results/

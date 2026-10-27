@@ -1,0 +1,14 @@
+# Keep Colab's existing CUDA-enabled torch; do not install laptop models.
+transformers==4.57.1
+sentence-transformers==5.1.2
+accelerate==1.11.0
+bitsandbytes==0.48.1
+numpy>=1.26,<3
+pydantic>=2.10,<3
+openai>=1.70,<3
+PyMuPDF>=1.25,<2
+python-dotenv>=1,<2
+fastapi>=0.115,<1
+python-multipart>=0.0.20
+httpx>=0.27,<1
+pytest>=8,<10

@@ -1,0 +1,326 @@
+{
+  "schema_version": 1,
+  "profile": "free-colab-open-weights",
+  "updated_at": "2026-10-26T22:29:02.498219+00:00",
+  "configuration": {
+    "dataset_sha256": "37fa2b0b02486f979f066f9c92fb4139a102e994e9e9e964166458f662508358",
+    "code_sha256": "b03d98393f63fa83d651d48addfd2fc9ee7bd17534d3f15ca6a54c70736a64fe",
+    "models": {
+      "backend": "colab-open-weights",
+      "revisions": {
+        "sentence-transformers/all-MiniLM-L6-v2": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+        "cross-encoder/ms-marco-MiniLM-L6-v2": "233902d25c440f23af6f7d6e94d2946bac0bee0a",
+        "Qwen/Qwen3-4B-Instruct-2507": "cdbee75f17c01a7cc42f958dc650907174af0554"
+      },
+      "embedding": "sentence-transformers/all-MiniLM-L6-v2",
+      "rerank": "cross-encoder/ms-marco-MiniLM-L6-v2",
+      "verdict": "Qwen/Qwen3-4B-Instruct-2507",
+      "embedding_policy": "240-token windows, 32-token overlap, mean of normalized window vectors then L2 normalization",
+      "rerank_policy": "maximum cross-encoder logit over 320-token source windows with 64-token overlap; no lexical rescue",
+      "quantization": "verdict model NF4 4-bit, float16 compute, double quantization",
+      "generation": "greedy; one claim per verdict request; 2048 output-token cap; 12000 input-token cap; no silent truncation",
+      "gpu": "Tesla T4"
+    },
+    "mode": "rerank",
+    "verdicts": true,
+    "verdict_batch_size": 1,
+    "packages": {
+      "torch": "2.11.0+cu130",
+      "transformers": "4.57.1",
+      "sentence-transformers": "5.1.2",
+      "bitsandbytes": "0.48.1",
+      "accelerate": "1.11.0",
+      "numpy": "2.1.3"
+    }
+  },
+  "dataset_id": "proofpilot-policy-v3",
+  "split": "policy",
+  "dataset_total_cases": 10,
+  "requested_cases": 10,
+  "completed_cases": 10,
+  "partial_run": false,
+  "strategies": {
+    "rerank": {
+      "metrics": {
+        "claims": 10,
+        "retrieval_applicable_claims": 8,
+        "retrieval_not_applicable_claims": 2,
+        "retrieval_recall_at_1": 0.875,
+        "retrieval_hit_rate_at_1": 1.0,
+        "retrieval_recall_at_4": 1.0,
+        "retrieval_hit_rate_at_4": 1.0,
+        "retrieval_recall_at_8": 1.0,
+        "retrieval_hit_rate_at_8": 1.0,
+        "retrieval_mrr_at_8": 1.0,
+        "verdict_accuracy": 1.0,
+        "accuracy_wilson_95": [
+          0.7225,
+          1.0
+        ],
+        "verdict_coverage": 1.0,
+        "missing_verdicts": 0,
+        "macro_f1_observed_labels": 1.0,
+        "per_verdict": {
+          "supported": {
+            "support": 2,
+            "predicted": 2,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "weakly_supported": {
+            "support": 2,
+            "predicted": 2,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "unsupported": {
+            "support": 2,
+            "predicted": 2,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "contradicted": {
+            "support": 2,
+            "predicted": 2,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "human_review_required": {
+            "support": 2,
+            "predicted": 2,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          }
+        },
+        "confusion_matrix": {
+          "supported": {
+            "supported": 2
+          },
+          "weakly_supported": {
+            "weakly_supported": 2
+          },
+          "unsupported": {
+            "unsupported": 2
+          },
+          "contradicted": {
+            "contradicted": 2
+          },
+          "human_review_required": {
+            "human_review_required": 2
+          }
+        },
+        "false_supported": 0
+      },
+      "errors": [],
+      "reranker_fallback_claims": 0,
+      "claim_results": [
+        {
+          "case_id": "policy-1",
+          "claim_id": "C1",
+          "claim": "The city opened 12 cooling centers.",
+          "type": "statistic",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "P1"
+          ],
+          "ranked_source_ids": [
+            "P1"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "supported",
+          "evidence_quote": "The city opened 12 cooling centers on June 4, 2026.",
+          "cited_source_ids": [
+            "P1"
+          ]
+        },
+        {
+          "case_id": "policy-2",
+          "claim_id": "C2",
+          "claim": "Editors must approve factual changes before publication.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "P2"
+          ],
+          "ranked_source_ids": [
+            "P2"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "supported",
+          "evidence_quote": "Editors must approve every factual change before publication.",
+          "cited_source_ids": [
+            "P2"
+          ]
+        },
+        {
+          "case_id": "policy-3",
+          "claim_id": "C3",
+          "claim": "Commuter satisfaction increased across the entire city after the bus pilot.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "weakly_supported",
+          "expected_source_ids": [
+            "P3"
+          ],
+          "ranked_source_ids": [
+            "P3"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "weakly_supported",
+          "evidence_quote": "Among surveyed commuters, satisfaction increased after the bus pilot. The survey excluded people who did not use the pilot routes.",
+          "cited_source_ids": [
+            "P3"
+          ]
+        },
+        {
+          "case_id": "policy-4",
+          "claim_id": "C4",
+          "claim": "The tool reduces editing time across newsrooms.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "weakly_supported",
+          "expected_source_ids": [
+            "P4"
+          ],
+          "ranked_source_ids": [
+            "P4"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "weakly_supported",
+          "evidence_quote": "The tool reduced average editing time during a two-week trial at a single newsroom. No other newsrooms were studied.",
+          "cited_source_ids": [
+            "P4"
+          ]
+        },
+        {
+          "case_id": "policy-5",
+          "claim_id": "C5",
+          "claim": "The tool increased advertising revenue.",
+          "type": "causal",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "P5"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": [
+            "P5"
+          ]
+        },
+        {
+          "case_id": "policy-6",
+          "claim_id": "C6",
+          "claim": "Ridership increased by 25 percent.",
+          "type": "statistic",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "P6"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "policy-7",
+          "claim_id": "C7",
+          "claim": "The pilot enrolled 200 editors.",
+          "type": "statistic",
+          "importance": "high",
+          "expected_verdict": "contradicted",
+          "expected_source_ids": [
+            "P7"
+          ],
+          "ranked_source_ids": [
+            "P7"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "contradicted",
+          "evidence_quote": "The pilot enrolled 120 editors, not 200.",
+          "cited_source_ids": [
+            "P7"
+          ]
+        },
+        {
+          "case_id": "policy-8",
+          "claim_id": "C8",
+          "claim": "The council approved the proposal.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "contradicted",
+          "expected_source_ids": [
+            "P8"
+          ],
+          "ranked_source_ids": [
+            "P8"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "contradicted",
+          "evidence_quote": "The council rejected the proposal. It was not approved.",
+          "cited_source_ids": [
+            "P8"
+          ]
+        },
+        {
+          "case_id": "policy-9",
+          "claim_id": "C9",
+          "claim": "The bridge is open to traffic.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "human_review_required",
+          "expected_source_ids": [
+            "P9A",
+            "P9B"
+          ],
+          "ranked_source_ids": [
+            "P9A",
+            "P9B"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "human_review_required",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "policy-10",
+          "claim_id": "C10",
+          "claim": "The project's final cost was 4 million dollars.",
+          "type": "statistic",
+          "importance": "high",
+          "expected_verdict": "human_review_required",
+          "expected_source_ids": [
+            "P10A",
+            "P10B"
+          ],
+          "ranked_source_ids": [
+            "P10A",
+            "P10B"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "human_review_required",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        }
+      ]
+    }
+  },
+  "limitations": [
+    "Ten synthetic policy examples; not a generalization estimate.",
+    "These cases exercise verdict distinctions, not large-pool retrieval.",
+    "Open-weight models and windowing differ from the hosted Qwen pipeline.",
+    "Cross-encoder scores rank relevance, not entailment or calibrated truth probabilities.",
+    "Inference errors are preserved as missing predictions; cached failed chunks are not silently retried."
+  ]
+}

@@ -1,0 +1,713 @@
+{
+  "schema_version": 1,
+  "profile": "free-colab-open-weights",
+  "updated_at": "2026-10-26T21:28:13.437949+00:00",
+  "configuration": {
+    "dataset_sha256": "4edf0bc1d2badb1629b9386ce9f79db4c50c1c3c268d286fa4a196a70476e585",
+    "code_sha256": "1f816aae79de5f87687268644b4f69e34c91e0edf3fc96089cb72c5854152e07",
+    "models": {
+      "backend": "colab-open-weights",
+      "revisions": {
+        "sentence-transformers/all-MiniLM-L6-v2": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+        "cross-encoder/ms-marco-MiniLM-L6-v2": "233902d25c440f23af6f7d6e94d2946bac0bee0a",
+        "Qwen/Qwen3-4B-Instruct-2507": "cdbee75f17c01a7cc42f958dc650907174af0554"
+      },
+      "embedding": "sentence-transformers/all-MiniLM-L6-v2",
+      "rerank": "cross-encoder/ms-marco-MiniLM-L6-v2",
+      "verdict": "Qwen/Qwen3-4B-Instruct-2507",
+      "embedding_policy": "240-token windows, 32-token overlap, mean of normalized window vectors then L2 normalization",
+      "rerank_policy": "maximum cross-encoder logit over 320-token source windows with 64-token overlap; no lexical rescue",
+      "quantization": "verdict model NF4 4-bit, float16 compute, double quantization",
+      "generation": "greedy; one claim per verdict request; 2048 output-token cap; 12000 input-token cap; no silent truncation",
+      "gpu": "Tesla T4"
+    },
+    "mode": "compare",
+    "verdicts": true,
+    "verdict_batch_size": 1,
+    "packages": {
+      "torch": "2.11.0+cu130",
+      "transformers": "4.57.1",
+      "sentence-transformers": "5.1.2",
+      "bitsandbytes": "0.48.1",
+      "accelerate": "1.11.0",
+      "numpy": "2.1.3"
+    }
+  },
+  "dataset_id": "scifact-proofpilot-v2",
+  "split": "development",
+  "dataset_total_cases": 100,
+  "requested_cases": 10,
+  "completed_cases": 10,
+  "partial_run": true,
+  "strategies": {
+    "cosine": {
+      "metrics": {
+        "claims": 10,
+        "retrieval_applicable_claims": 6,
+        "retrieval_not_applicable_claims": 4,
+        "retrieval_recall_at_1": 0.6667,
+        "retrieval_hit_rate_at_1": 0.6667,
+        "retrieval_recall_at_4": 1.0,
+        "retrieval_hit_rate_at_4": 1.0,
+        "retrieval_recall_at_8": 1.0,
+        "retrieval_hit_rate_at_8": 1.0,
+        "retrieval_mrr_at_8": 0.7778,
+        "verdict_accuracy": 0.8,
+        "accuracy_wilson_95": [
+          0.4902,
+          0.9433
+        ],
+        "verdict_coverage": 1.0,
+        "missing_verdicts": 0,
+        "macro_f1_observed_labels": 0.8444,
+        "per_verdict": {
+          "supported": {
+            "support": 6,
+            "predicted": 4,
+            "precision": 1.0,
+            "recall": 0.6667,
+            "f1": 0.8
+          },
+          "weakly_supported": {
+            "support": 0,
+            "predicted": 1,
+            "precision": 0.0,
+            "recall": null,
+            "f1": null
+          },
+          "unsupported": {
+            "support": 4,
+            "predicted": 5,
+            "precision": 0.8,
+            "recall": 1.0,
+            "f1": 0.8889
+          },
+          "contradicted": {
+            "support": 0,
+            "predicted": 0,
+            "precision": 0.0,
+            "recall": null,
+            "f1": null
+          },
+          "human_review_required": {
+            "support": 0,
+            "predicted": 0,
+            "precision": 0.0,
+            "recall": null,
+            "f1": null
+          }
+        },
+        "confusion_matrix": {
+          "supported": {
+            "weakly_supported": 1,
+            "supported": 4,
+            "unsupported": 1
+          },
+          "weakly_supported": {},
+          "unsupported": {
+            "unsupported": 4
+          },
+          "contradicted": {},
+          "human_review_required": {}
+        },
+        "false_supported": 0
+      },
+      "errors": [],
+      "reranker_fallback_claims": 0,
+      "claim_results": [
+        {
+          "case_id": "scifact-1255",
+          "claim_id": "C1255",
+          "claim": "The proliferative capacity of progenitors is regulated cell-autonomously.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D16939583"
+          ],
+          "ranked_source_ids": [
+            "D39465575",
+            "D4366738",
+            "D16939583",
+            "D11902109",
+            "D19912367",
+            "D15816729",
+            "D8724666",
+            "D10015292"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "weakly_supported",
+          "evidence_quote": "We found that this mechanism for controlling cortical size is regulated cell autonomously in culture, suggesting that primate cerebral cortex size is regulated at least in part at the level of individual cortical progenitor cell clonal output.",
+          "cited_source_ids": [
+            "D16939583"
+          ]
+        },
+        {
+          "case_id": "scifact-606",
+          "claim_id": "C606",
+          "claim": "Increased conversion of PGE 2 to PPARy ligand 15-ket-PGE 2 causes accumulation of PGE.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D6083952",
+            "D712078",
+            "D8133180",
+            "D38401028",
+            "D31564409",
+            "D13001323",
+            "D34101101",
+            "D5503194"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-746",
+          "claim_id": "C746",
+          "claim": "MafA phosphorylation enhances its ubiquitination.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D11291348"
+          ],
+          "ranked_source_ids": [
+            "D11291348",
+            "D23513818",
+            "D43880096",
+            "D8417211",
+            "D21307488",
+            "D32408470",
+            "D1964163",
+            "D25817686"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "supported",
+          "evidence_quote": "We also demonstrate that GSK-3 triggers MafA sequential phosphorylation on residues S61, T57, T53, and S49, inducing its ubiquitination and degradation.",
+          "cited_source_ids": [
+            "D11291348"
+          ]
+        },
+        {
+          "case_id": "scifact-1053",
+          "claim_id": "C1053",
+          "claim": "Rising temperatures caused by global warming lowers the risk of dengue fever transmission.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D2097256",
+            "D17454301",
+            "D18816720",
+            "D24922825",
+            "D27527854",
+            "D13882658",
+            "D129199129",
+            "D27866735"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-432",
+          "claim_id": "C432",
+          "claim": "Foxk2 regulates autophagy genes in muscle cells and fibroblast cells.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D8002887"
+          ],
+          "ranked_source_ids": [
+            "D8002887",
+            "D6227220",
+            "D982650",
+            "D33569870",
+            "D23972114",
+            "D19912367",
+            "D13651792",
+            "D11535539"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "supported",
+          "evidence_quote": "Here, we identify Foxk proteins (Foxk1 and Foxk2) as transcriptional repressors of autophagy in muscle cells and fibroblasts. Interestingly, Foxk1/2 serve to counter-balance another forkhead transcription factor, Foxo3, which induces an overlapping set of autophagic and atrophic targets in muscle. Foxk1/2 specifically recruits Sin3A-HDAC complexes to restrict acetylation of histone H4 and expression of critical autophagy genes.",
+          "cited_source_ids": [
+            "D8002887"
+          ]
+        },
+        {
+          "case_id": "scifact-247",
+          "claim_id": "C247",
+          "claim": "Chemical injury represses transglutaminase 2 activity.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D13578199",
+            "D3870062",
+            "D6182947",
+            "D2890952",
+            "D13613916",
+            "D4362729",
+            "D25519138",
+            "D2316374"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-1068",
+          "claim_id": "C1068",
+          "claim": "ScPif1p has reduced binding ability to G-rich ssDNA compared to non-G-rich ssDNA.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D29098525",
+            "D11011905",
+            "D13921783",
+            "D23509593",
+            "D22500262",
+            "D26887439",
+            "D16853734",
+            "D24645237"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-818",
+          "claim_id": "C818",
+          "claim": "Myelin sheaths play a role in action potential propagation.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D17814815"
+          ],
+          "ranked_source_ids": [
+            "D20743803",
+            "D7840442",
+            "D17814815",
+            "D35467590",
+            "D14461101",
+            "D45449835",
+            "D8267678",
+            "D9899292"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-1043",
+          "claim_id": "C1043",
+          "claim": "Retinoic acid receptor-related orphan receptor gamma (ROR\u03b3) is a therapeutic target for castration-resistant prostate cancer (CRPC)",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D17671145"
+          ],
+          "ranked_source_ids": [
+            "D17671145",
+            "D11774598",
+            "D8512633",
+            "D25830701",
+            "D18546584",
+            "D6790197",
+            "D3590806",
+            "D18473550"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "supported",
+          "evidence_quote": "ROR-\u03b3 drives androgen receptor expression and represents a therapeutic target in castration-resistant prostate cancer. The androgen receptor (AR) is overexpressed and hyperactivated in human castration-resistant prostate cancer (CRPC). However, the determinants of AR overexpression in CRPC are poorly defined. Here we show that retinoic acid receptor-related orphan receptor \u03b3 (ROR-\u03b3) is overexpressed and amplified in metastatic CRPC tumors, and that ROR-\u03b3 drives AR expression in the tumors. ROR-\u03b3 recruits nuclear receptor coactivator 1 and 3 (NCOA1 and NCOA3, also known as SRC-1 and SRC-3) to an AR-ROR response element (RORE) to stimulate AR gene transcription. ROR-\u03b3 antagonists suppress the expression of both AR and its variant AR-V7 in prostate cancer (PCa) cell lines and tumors. ROR-\u03b3 antagonists also markedly diminish genome-wide AR binding, H3K27ac abundance and expression of the AR target gene network. Finally, ROR-\u03b3 antagonists suppressed tumor growth in multiple AR-expressing, but not AR-negative, xenograft PCa models, and they effectively sensitized CRPC tumors to enzalutamide, without overt toxicity, in mice. Taken together, these results establish ROR-\u03b3 as a key player in CRPC by acting upstream of AR and as a potential therapeutic target for advanced PCa.",
+          "cited_source_ids": [
+            "D17671145"
+          ]
+        },
+        {
+          "case_id": "scifact-885",
+          "claim_id": "C885",
+          "claim": "One in five surgical randomized controlled trials are discontinued early.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D6477536"
+          ],
+          "ranked_source_ids": [
+            "D6477536",
+            "D9754833",
+            "D46485368",
+            "D44048701",
+            "D7613033",
+            "D7552215",
+            "D13027590",
+            "D20008796"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "supported",
+          "evidence_quote": "Of these, 21% (81/395) were discontinued early, most commonly owing to poor recruitment (44%, 36/81).",
+          "cited_source_ids": [
+            "D6477536"
+          ]
+        }
+      ]
+    },
+    "rerank": {
+      "metrics": {
+        "claims": 10,
+        "retrieval_applicable_claims": 6,
+        "retrieval_not_applicable_claims": 4,
+        "retrieval_recall_at_1": 0.8333,
+        "retrieval_hit_rate_at_1": 0.8333,
+        "retrieval_recall_at_4": 0.8333,
+        "retrieval_hit_rate_at_4": 0.8333,
+        "retrieval_recall_at_8": 1.0,
+        "retrieval_hit_rate_at_8": 1.0,
+        "retrieval_mrr_at_8": 0.8667,
+        "verdict_accuracy": 0.8,
+        "accuracy_wilson_95": [
+          0.4902,
+          0.9433
+        ],
+        "verdict_coverage": 1.0,
+        "missing_verdicts": 0,
+        "macro_f1_observed_labels": 0.8295,
+        "per_verdict": {
+          "supported": {
+            "support": 6,
+            "predicted": 5,
+            "precision": 1.0,
+            "recall": 0.8333,
+            "f1": 0.9091
+          },
+          "weakly_supported": {
+            "support": 0,
+            "predicted": 0,
+            "precision": 0.0,
+            "recall": null,
+            "f1": null
+          },
+          "unsupported": {
+            "support": 4,
+            "predicted": 4,
+            "precision": 0.75,
+            "recall": 0.75,
+            "f1": 0.75
+          },
+          "contradicted": {
+            "support": 0,
+            "predicted": 0,
+            "precision": 0.0,
+            "recall": null,
+            "f1": null
+          },
+          "human_review_required": {
+            "support": 0,
+            "predicted": 1,
+            "precision": 0.0,
+            "recall": null,
+            "f1": null
+          }
+        },
+        "confusion_matrix": {
+          "supported": {
+            "supported": 5,
+            "unsupported": 1
+          },
+          "weakly_supported": {},
+          "unsupported": {
+            "unsupported": 3,
+            "human_review_required": 1
+          },
+          "contradicted": {},
+          "human_review_required": {}
+        },
+        "false_supported": 0
+      },
+      "errors": [],
+      "reranker_fallback_claims": 0,
+      "claim_results": [
+        {
+          "case_id": "scifact-1255",
+          "claim_id": "C1255",
+          "claim": "The proliferative capacity of progenitors is regulated cell-autonomously.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D16939583"
+          ],
+          "ranked_source_ids": [
+            "D16939583",
+            "D11902109",
+            "D10015292",
+            "D4366738",
+            "D39465575",
+            "D19912367",
+            "D15816729",
+            "D8724666"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "supported",
+          "evidence_quote": "We found that this mechanism for controlling cortical size is regulated cell autonomously in culture, suggesting that primate cerebral cortex size is regulated at least in part at the level of individual cortical progenitor cell clonal output.",
+          "cited_source_ids": [
+            "D16939583"
+          ]
+        },
+        {
+          "case_id": "scifact-606",
+          "claim_id": "C606",
+          "claim": "Increased conversion of PGE 2 to PPARy ligand 15-ket-PGE 2 causes accumulation of PGE.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D6083952",
+            "D31564409",
+            "D712078",
+            "D38401028",
+            "D8133180",
+            "D13001323",
+            "D34101101",
+            "D5503194"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-746",
+          "claim_id": "C746",
+          "claim": "MafA phosphorylation enhances its ubiquitination.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D11291348"
+          ],
+          "ranked_source_ids": [
+            "D11291348",
+            "D21307488",
+            "D25817686",
+            "D23513818",
+            "D43880096",
+            "D8417211",
+            "D32408470",
+            "D1964163"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "supported",
+          "evidence_quote": "We also demonstrate that GSK-3 triggers MafA sequential phosphorylation on residues S61, T57, T53, and S49, inducing its ubiquitination and degradation.",
+          "cited_source_ids": [
+            "D11291348"
+          ]
+        },
+        {
+          "case_id": "scifact-1053",
+          "claim_id": "C1053",
+          "claim": "Rising temperatures caused by global warming lowers the risk of dengue fever transmission.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D18816720",
+            "D2097256",
+            "D17454301",
+            "D13882658",
+            "D24922825",
+            "D27527854",
+            "D129199129",
+            "D27866735"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "human_review_required",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-432",
+          "claim_id": "C432",
+          "claim": "Foxk2 regulates autophagy genes in muscle cells and fibroblast cells.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D8002887"
+          ],
+          "ranked_source_ids": [
+            "D8002887",
+            "D982650",
+            "D13651792",
+            "D6227220",
+            "D33569870",
+            "D23972114",
+            "D19912367",
+            "D11535539"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "supported",
+          "evidence_quote": "Here, we identify Foxk proteins (Foxk1 and Foxk2) as transcriptional repressors of autophagy in muscle cells and fibroblasts. Interestingly, Foxk1/2 serve to counter-balance another forkhead transcription factor, Foxo3, which induces an overlapping set of autophagic and atrophic targets in muscle. Foxk1/2 specifically recruits Sin3A-HDAC complexes to restrict acetylation of histone H4 and expression of critical autophagy genes.",
+          "cited_source_ids": [
+            "D8002887"
+          ]
+        },
+        {
+          "case_id": "scifact-247",
+          "claim_id": "C247",
+          "claim": "Chemical injury represses transglutaminase 2 activity.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D13578199",
+            "D2316374",
+            "D13613916",
+            "D3870062",
+            "D6182947",
+            "D2890952",
+            "D4362729",
+            "D25519138"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-1068",
+          "claim_id": "C1068",
+          "claim": "ScPif1p has reduced binding ability to G-rich ssDNA compared to non-G-rich ssDNA.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "unsupported",
+          "expected_source_ids": [],
+          "ranked_source_ids": [
+            "D23509593",
+            "D24645237",
+            "D22500262",
+            "D29098525",
+            "D11011905",
+            "D13921783",
+            "D26887439",
+            "D16853734"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-818",
+          "claim_id": "C818",
+          "claim": "Myelin sheaths play a role in action potential propagation.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D17814815"
+          ],
+          "ranked_source_ids": [
+            "D20743803",
+            "D45449835",
+            "D7840442",
+            "D35467590",
+            "D17814815",
+            "D14461101",
+            "D8267678",
+            "D9899292"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "unsupported",
+          "evidence_quote": "",
+          "cited_source_ids": []
+        },
+        {
+          "case_id": "scifact-1043",
+          "claim_id": "C1043",
+          "claim": "Retinoic acid receptor-related orphan receptor gamma (ROR\u03b3) is a therapeutic target for castration-resistant prostate cancer (CRPC)",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D17671145"
+          ],
+          "ranked_source_ids": [
+            "D17671145",
+            "D3590806",
+            "D8512633",
+            "D11774598",
+            "D25830701",
+            "D18546584",
+            "D6790197",
+            "D18473550"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "supported",
+          "evidence_quote": "ROR-\u03b3 drives androgen receptor expression and represents a therapeutic target in castration-resistant prostate cancer. The androgen receptor (AR) is overexpressed and hyperactivated in human castration-resistant prostate cancer (CRPC). However, the determinants of AR overexpression in CRPC are poorly defined. Here we show that retinoic acid receptor-related orphan receptor \u03b3 (ROR-\u03b3) is overexpressed and amplified in metastatic CRPC tumors, and that ROR-\u03b3 drives AR expression in the tumors. ROR-\u03b3 recruits nuclear receptor coactivator 1 and 3 (NCOA1 and NCOA3, also known as SRC-1 and SRC-3) to an AR-ROR response element (RORE) to stimulate AR gene transcription. ROR-\u03b3 antagonists suppress the expression of both AR and its variant AR-V7 in prostate cancer (PCa) cell lines and tumors. ROR-\u03b3 antagonists also markedly diminish genome-wide AR binding, H3K27ac abundance and expression of the AR target gene network. Finally, ROR-\u03b3 antagonists suppressed tumor growth in multiple AR-expressing, but not AR-negative, xenograft PCa models, and they effectively sensitized CRPC tumors to enzalutamide, without overt toxicity, in mice. Taken together, these results establish ROR-\u03b3 as a key player in CRPC by acting upstream of AR and as a potential therapeutic target for advanced PCa.",
+          "cited_source_ids": [
+            "D17671145"
+          ]
+        },
+        {
+          "case_id": "scifact-885",
+          "claim_id": "C885",
+          "claim": "One in five surgical randomized controlled trials are discontinued early.",
+          "type": "general_fact",
+          "importance": "high",
+          "expected_verdict": "supported",
+          "expected_source_ids": [
+            "D6477536"
+          ],
+          "ranked_source_ids": [
+            "D6477536",
+            "D9754833",
+            "D13027590",
+            "D46485368",
+            "D44048701",
+            "D7613033",
+            "D7552215",
+            "D20008796"
+          ],
+          "reranker_fallback": false,
+          "actual_verdict": "supported",
+          "evidence_quote": "Of these, 21% (81/395) were discontinued early, most commonly owing to poor recruitment (44%, 36/81).",
+          "cited_source_ids": [
+            "D6477536"
+          ]
+        }
+      ]
+    }
+  },
+  "limitations": [
+    "Public benchmark may be present in model pretraining.",
+    "Test is upstream development, not the unreleased SciFact test set.",
+    "Unsupported means no upstream annotated evidence, not proof of falsehood.",
+    "Gold evidence is included in the candidate pool by construction.",
+    "Abstracts are passages; page number 1 is a container marker, not a journal page.",
+    "Only three verdict classes are expert annotated; other policy classes use separate tests.",
+    "Open-weight models and windowing differ from the hosted Qwen pipeline.",
+    "Cross-encoder scores rank relevance, not entailment or calibrated truth probabilities.",
+    "Inference errors are preserved as missing predictions; cached failed chunks are not silently retried."
+  ]
+}

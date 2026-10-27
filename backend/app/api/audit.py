@@ -15,11 +15,20 @@ from app.services.qwen_client import (
     extract_claims,
 )
 from app.services.retrieval import RetrievalError
+from app.services.provider_status import public_provider_problem
 
 router = APIRouter(prefix="/api/audits", tags=["audits"])
 
 MIN_DRAFT_CHARACTERS = 40
 MAX_DRAFT_CHARACTERS = 20_000
+
+
+def _check_provider_failure(exc: Exception) -> None:
+    problem = public_provider_problem(exc)
+    if problem:
+        raise HTTPException(status_code=503, detail=problem) from exc
+    if isinstance(exc, ClaimExtractionError) and "12-claim audit limit" in str(exc):
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
 
 
 def _validate_draft(draft: str) -> str:
@@ -75,6 +84,7 @@ async def prepare_audit(
     try:
         claims = await run_in_threadpool(extract_claims, clean_draft)
     except ClaimExtractionError as exc:
+        _check_provider_failure(exc)
         raise HTTPException(
             status_code=status.HTTP_502_BAD_GATEWAY,
             detail="Qwen could not extract claims from this draft.",
@@ -103,16 +113,19 @@ async def create_audit(
     try:
         return await run_in_threadpool(run_audit, clean_draft, document)
     except ClaimExtractionError as exc:
+        _check_provider_failure(exc)
         raise HTTPException(
             status_code=status.HTTP_502_BAD_GATEWAY,
             detail="Qwen could not extract factual claims from this draft.",
         ) from exc
     except RetrievalError as exc:
+        _check_provider_failure(exc)
         raise HTTPException(
             status_code=status.HTTP_502_BAD_GATEWAY,
             detail="Qwen could not retrieve evidence from this source.",
         ) from exc
     except VerdictError as exc:
+        _check_provider_failure(exc)
         raise HTTPException(
             status_code=status.HTTP_502_BAD_GATEWAY,
             detail="Qwen could not produce grounded evidence verdicts.",
